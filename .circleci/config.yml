@@ -13,6 +13,9 @@ jobs:
       - image: circleci/node:8.11.1
 
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:ev9CazMYuBe7nwpj9sEAWnkTy233wvIG2vA+TSUYsrI npaton@users.noreply.github.com"
       - checkout
       - run:
           name: Deploying to GitHub Pages
