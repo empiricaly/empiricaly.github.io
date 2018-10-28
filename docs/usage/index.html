@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Usage · Empirica</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="`create-empirica-app` requires Node.js &gt;= 8. If you don&#x27;t already have"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Usage · Empirica"/><meta property="og:type" content="website"/><meta property="og:url" content="https://empiricaly.github.io/index.html"/><meta property="og:description" content="`create-empirica-app` requires Node.js &gt;= 8. If you don&#x27;t already have"/><meta property="og:image" content="https://empiricaly.github.io/img/logo-white.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://empiricaly.github.io/img/logo-white.png"/><link rel="shortcut icon" href="/img/logo-transparent.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://empiricaly.github.io/blog/atom.xml" title="Empirica Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://empiricaly.github.io/blog/feed.xml" title="Empirica Blog RSS Feed"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-black.png" alt="Empirica"/><h2 class="headerTitleWithLogo">Empirica</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/quick-start" target="_self">Docs</a></li><li class=""><a href="/docs/doc4" target="_self">API</a></li><li class=""><a href="/help" target="_self">Help</a></li><li class=""><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Getting Started</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/docs/quick-start">Quick Start</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/usage">Usage</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/doc3">This is document number 3</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Usage</h1></header><article><div><span><p><code>create-empirica-app</code> requires Node.js &gt;= 8. If you don't already have
+Node.js 8+ setup, we recommend you use the official installer:
+<a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a>.</p>
+<p>Then you can simply run the following command, where <code>my-experiment</code> is the name
+of the experiment you wish to create:</p>
+<pre><code class="hljs css language-sh">npx create-empirica-app my-experiment
+</code></pre>
+<p>It will create a directory called <code>my-experiment</code> inside the current folder.<br>
+Inside that directory, it will generate the initial project structure and
+install the transitive dependencies:</p>
+<pre><code class="hljs">my-experiment
+├── .meteor
+├── README.md
+├── node_modules
+├── package.json
+├── package-lock.json
+├── .gitignore
+├── public
+├──<span class="hljs-built_in"> client
+</span>│   ├── main.html
+│   ├── main.js
+│   ├── main.css
+│   ├── game
+│   │   └── <span class="hljs-built_in">..</span>.
+│   ├── intro
+│   │   └── <span class="hljs-built_in">..</span>.
+│   └── exit
+│       └── <span class="hljs-built_in">..</span>.
+└──<span class="hljs-built_in"> server
+</span>    ├── main.js
+    ├── callbacks.js
+    └── bots.js
+</code></pre>
+<p>No configuration or complicated folder structures, just the files you need to
+build your app.
+Once the installation is done, you can open your project folder:</p>
+<pre><code class="hljs css language-sh"><span class="hljs-built_in">cd</span> my-experiment
+</code></pre>
+<p>Inside the newly created project, you can run the standard <code>meteor</code> command to
+start you app locally:</p>
+<pre><code class="hljs css language-sh">meteor
+</code></pre>
+<p><code>meteor</code> runs the app in development mode.<br>
+Open <a href="http://localhost:3000">http://localhost:3000</a> to view it in the browser.</p>
+<p>The page will automatically reload if you make changes to the code.<br>
+You will see the build errors in the console.</p>
+<h2><a class="anchor" aria-hidden="true" id="updating-empirica-core"></a><a href="#updating-empirica-core" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Updating Empirica Core</h2>
+<p>As new versions of Empirica become available, you might want to update the
+version you are using in your app. To do so, simply run:</p>
+<pre><code class="hljs css language-sh">meteor update empirica:core
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/quick-start"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/docs/doc3"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#updating-empirica-core">Updating Empirica Core</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo-white.png" alt="Empirica" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/quick-start.html">Getting Started</a></div><div><h5>Community</h5><a href="https://twitter.com/empirica_ly" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/empiricaly">GitHub</a><a class="github-button" href="https://github.com/empiricaly/meteor-empirica-core" data-icon="octicon-star" data-count-href="/empiricaly/meteor-empirica-core/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Empirica</section></footer></div></body></html>
