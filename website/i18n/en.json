@@ -5,14 +5,14 @@
     "previous": "Previous",
     "tagline": "Easy Multiplayer Interactive Experiments in the Browser",
     "docs": {
-      "doc3": {
-        "title": "This is document number 3"
-      },
-      "doc4": {
-        "title": "Other Document"
+      "api": {
+        "title": "API"
       },
       "doc5": {
         "title": "Fifth Document"
+      },
+      "guess-the-correlation": {
+        "title": "Guess the Correlation Game"
       },
       "quick-start": {
         "title": "Quick Start",
@@ -25,13 +25,12 @@
     "links": {
       "Docs": "Docs",
       "API": "API",
-      "Help": "Help",
-      "Blog": "Blog"
+      "Help": "Help"
     },
     "categories": {
       "Getting Started": "Getting Started",
       "Guides": "Guides",
-      "First Category": "First Category"
+      "Reference": "Reference"
     }
   },
   "pages-strings": {

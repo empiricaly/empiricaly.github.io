@@ -1,5 +1,16 @@
 /* your custom css */
 
+a {
+  color: #3b4d7d;
+  /* color: red; */
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0c4ee8;
+  text-decoration: none;
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
 

@@ -1,9 +1,7 @@
 {
   "docs": {
     "Getting Started": ["quick-start", "usage"],
-    "Guides": ["doc3"]
-  },
-  "docs-other": {
-    "First Category": ["doc4", "doc5"]
+    "Guides": ["guess-the-correlation"],
+    "Reference": ["api"]
   }
 }
