@@ -57,7 +57,7 @@ const siteConfig = {
   /* Colors for website */
   colors: {
     primaryColor: "#20232a",
-    secondaryColor: "#FF0000"
+    secondaryColor: "#111214"
   },
 
   /* Custom fonts for website */
@@ -79,11 +79,18 @@ const siteConfig = {
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
-    theme: "default"
+    theme: "solarized-dark"
   },
 
+  usePrism: ["js", "javascript", "typescript"],
+
   // Add custom scripts here that would be placed in <script> tags.
-  scripts: ["https://buttons.github.io/buttons.js"],
+  scripts: [
+    "https://buttons.github.io/buttons.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js",
+    "/js/code-block-buttons.js"
+  ],
+  stylesheets: ["/css/code-block-buttons.css"],
 
   // On page navigation for the current documentation page.
   onPageNav: "separate",

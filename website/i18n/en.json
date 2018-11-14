@@ -8,11 +8,14 @@
       "api": {
         "title": "API"
       },
-      "doc5": {
-        "title": "Fifth Document"
+      "concepts": {
+        "title": "Concepts"
       },
       "guess-the-correlation": {
         "title": "Guess the Correlation Game"
+      },
+      "lifecycle": {
+        "title": "Experiment Lifecycle"
       },
       "quick-start": {
         "title": "Quick Start",
@@ -20,6 +23,9 @@
       },
       "usage": {
         "title": "Usage"
+      },
+      "your-first-experiment": {
+        "title": "Your First Experiment"
       }
     },
     "links": {

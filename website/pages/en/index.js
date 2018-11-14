@@ -77,15 +77,12 @@ class HomeSplash extends React.Component {
     const language = this.props.language || "";
     return (
       <SplashContainer>
-        {/* <Logo img_src={imgUrl("logo.png")} /> */}
         <div className="inner">
           <ProjectTitle />
           <PromoSection>
-            {/* <Button href="#try">Try It Out</Button> */}
             <Button href={docUrl("quick-start.html", language)}>
               Getting Started
             </Button>
-            {/* <Button href={docUrl("doc2.html", language)}>Example Link 2</Button> */}
           </PromoSection>
         </div>
       </SplashContainer>
@@ -101,6 +98,19 @@ const Block = props => (
   >
     <GridBlock align="center" contents={props.children} layout={props.layout} />
   </Container>
+);
+
+const Intro = () => (
+  <Block background="light">
+    {[
+      {
+        content:
+          "Empirica is an open-source JavaScript framework for running multiplayer interactive experiments and games in the browser. It was created to make it easy to develop and iterate on sophisticated designs in a statistically sound manner, and offers a unique combination of power, flexibility, and speed.",
+        image: imgUrl("screenshot1.png"),
+        key: "What is it?"
+      }
+    ]}
+  </Block>
 );
 
 const FeaturesA = () => (
@@ -175,8 +185,6 @@ const Team = () => (
       {
         content:
           "Empirica is developed by [Abdullah Almaatouq](http://www.amaatouq.com/) ([LinkedIn](https://www.linkedin.com/in/amaatouq/), [Twitter](https://twitter.com/amaatouq/)) and [Nicolas Paton](https://www.linkedin.com/in/nicolaspaton/)",
-        // image: imgUrl("docusaurus.svg"),
-        // imageAlign: "right",
         title: "Team"
       }
     ]}
@@ -189,51 +197,11 @@ const Support = () => (
       {
         content:
           "We are also advised and supported by a strong team of academics and science enthusiasts including [Iyad Rahwan](https://rahwan.me/), [Duncan Watts](https://www.microsoft.com/en-us/research/people/duncan/), [Alex ‘Sandy’ Pentland](https://www.media.mit.edu/people/sandy/overview/), [Joshua Becker](https://www.joshua-becker.com/), [Alejandro Campero](https://www.linkedin.com/in/alejandro-noriega-campero-40305637/), [Niccolo Pescetelli](https://niccolopescetelli.com/about/), and [Joost P Bonsen](https://d-lab.mit.edu/staff/joost_bonsen).",
-        // image: imgUrl("docusaurus.svg"),
-        // imageAlign: "left",
         title: "Support"
       }
     ]}
   </Block>
 );
-
-const Description = () => (
-  <Block background="dark">
-    {[
-      {
-        content: "This is another description of how this project is useful",
-        image: imgUrl("docusaurus.svg"),
-        imageAlign: "right",
-        title: "Description"
-      }
-    ]}
-  </Block>
-);
-
-const Showcase = props => {
-  if ((siteConfig.users || []).length === 0) {
-    return null;
-  }
-
-  const showcase = siteConfig.users.filter(user => user.pinned).map(user => (
-    <a href={user.infoLink} key={user.infoLink}>
-      <img src={user.image} alt={user.caption} title={user.caption} />
-    </a>
-  ));
-
-  return (
-    <div className="productShowcaseSection paddingBottom">
-      <h2>Who is Using This?</h2>
-      <p>This project is used by all these people</p>
-      <div className="logos">{showcase}</div>
-      <div className="more-users">
-        <a className="button" href={pageUrl("users.html", props.language)}>
-          More {siteConfig.title} Users
-        </a>
-      </div>
-    </div>
-  );
-};
 
 class Index extends React.Component {
   render() {
@@ -243,24 +211,11 @@ class Index extends React.Component {
       <div>
         <HomeSplash language={language} />
         <div className="mainContainer">
-          <Block background="light">
-            {[
-              {
-                content:
-                  "Empirica is an open-source JavaScript framework for running multiplayer interactive experiments and games in the browser. It was created to make it easy to develop and iterate on sophisticated designs in a statistically sound manner, and offers a unique combination of power, flexibility, and speed.",
-                image: imgUrl("screenshot1.png")
-                // imageAlign: "right"
-                // title: "What is it?"
-              }
-            ]}
-          </Block>
-
+          <Intro />
           <FeaturesA />
           <FeaturesB />
           <Team />
           <Support />
-          {/* <Description /> */}
-          {/* <Showcase language={language} /> */}
         </div>
       </div>
     );
