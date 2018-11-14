@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Concepts · Empirica</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="This document goes over the main concepts of Empirica."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Concepts · Empirica"/><meta property="og:type" content="website"/><meta property="og:url" content="https://empiricaly.github.io/index.html"/><meta property="og:description" content="This document goes over the main concepts of Empirica."/><meta property="og:image" content="https://empiricaly.github.io/img/logo-white.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://empiricaly.github.io/img/logo-white.png"/><link rel="shortcut icon" href="/img/logo-transparent.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-black.png" alt="Empirica"/><h2 class="headerTitleWithLogo">Empirica</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/quick-start" target="_self">Docs</a></li><li class="siteNavGroupActive"><a href="/docs/api" target="_self">API</a></li><li class=""><a href="/help" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Reference</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/docs/quick-start">Quick Start</a></li><li class="navListItem"><a class="navItem" href="/docs/usage">Usage</a></li><li class="navListItem"><a class="navItem" href="/docs/your-first-experiment">Your First Experiment</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/guess-the-correlation">Guess the Correlation Game</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Reference</h3><ul><li class="navListItem navListItemActive"><a class="navItem" href="/docs/concepts">Concepts</a></li><li class="navListItem"><a class="navItem" href="/docs/lifecycle">Experiment Lifecycle</a></li><li class="navListItem"><a class="navItem" href="/docs/api">API</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Concepts</h1></header><article><div><span><p>This document goes over the main concepts of Empirica.</p>
+<h2><a class="anchor" aria-hidden="true" id="game"></a><a href="#game" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Game</h2>
+<p>A Game is a single run of the experiment. It is also used to describe the
+experiment that was developed.</p>
+<h2><a class="anchor" aria-hidden="true" id="player"></a><a href="#player" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Player</h2>
+<p>Players are users participating in a Game. A game must have a least 1 Player.</p>
+<h2><a class="anchor" aria-hidden="true" id="batch"></a><a href="#batch" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Batch</h2>
+<p>A Batch is a set of 1 or more games that run in parallel. Batches allow to
+create different assignment methods (for player distribution). Batches are ran
+one at a time, in order of creation time. If you start multiple batches at once
+in the admin, only the first will accept players. Once full the next batch will
+automatically start receiving players.</p>
+<h2><a class="anchor" aria-hidden="true" id="round"></a><a href="#round" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Round</h2>
+<p>A Game is made up of 1 or more ordered Rounds. A round contains 1 or more
+stages. Rounds are usually composed of the same stages and repeats over the
+course of the game.</p>
+<p>E.g. For the guess the correlation experiment, on each round, we ask the player
+to guess the correlation between a graph and a numerical value. In the first
+stage of each round, it's the guess, the second stage the reveal of the result,
+and in the third stage we show what other players have guessed; all in the same
+round; and in the next round, we repeat those stages.</p>
+<p>It is not required for all Round to contain the same stages or even the same
+number of stages.</p>
+<p>Rounds do not have a name, they have an order number (1, 2, 3...)</p>
+<h2><a class="anchor" aria-hidden="true" id="stage"></a><a href="#stage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stage</h2>
+<p>A round may contain 1 or more stages. A stage has a duration, a name and a
+display name.</p>
+<p>The name is the programatic reference that can later be used in the UI code to
+differentiate stages. The display name on the other hand is used in the UI, and
+it a clean human readable name. For example, a stage name might be &quot;<em>guess</em>&quot;,
+while the display name might be &quot;<em>Guess A Number</em>&quot;.</p>
+<p>The stage duration is set in seconds, with a minimum of 5 seconds, and no
+maximum. You can also allow players to <em>submit</em> a stage, which marks it as done
+for the given player. When all players have submitted, the stage is considered
+done. If the stage timer runs out the stage is also considered done, whichever
+happens first.</p>
+<p>If you do not want to have a timer and want to wait until players submit, you
+can set the timer to an unreasonable value (e.g. 30000000 ~= a year), and hide
+the timer in the UI.</p>
+<h2><a class="anchor" aria-hidden="true" id="factors"></a><a href="#factors" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Factors</h2>
+<p>Factors are essentially variables that will affect how a game will play. One
+<em>Factor Type</em> is mandatory for any Empirica game, the <code>playerCount</code> number.</p>
+<p>Factors are assembled into treatments, which are themselves assigned to games.</p>
+<p>To create <em>Factor Values</em>, you must first create Factor Types. A <em>Factor Type</em>
+describes the Factor. A _Factor Type) has a <code>name</code>, a <code>description</code>, a
+<code>type</code> and a <code>required</code> marker.</p>
+<ul>
+<li>The <code>name</code> must be a code-friendly name, such a <code>playerCount</code>, which does not
+contain spaces or odd characters and is written in
+<a href="https://en.wikipedia.org/wiki/Camel_case">camelCase</a>.</li>
+<li>The <code>description</code> is a human readable description used in the admin UI to help
+other admins understand what this factor does.</li>
+<li>Finally, the <code>type</code> is a computing type (integer, string, ...) to limit what
+_Factor Values* can be created for this _Factor Type*.</li>
+<li>Factor Types can also be marked as <code>required</code>, meaning they are required in
+all treatments.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="treatment"></a><a href="#treatment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Treatment</h2>
+<p>A Treatment is a named set of Factors. Each factor can appear at most once in a
+treatment and required Factors must be present. The set of Factors in a
+treatment must be unique, no 2 treatment with the exact same set of factors can
+be created.</p>
+<h2><a class="anchor" aria-hidden="true" id="game-lobby"></a><a href="#game-lobby" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Game Lobby</h2>
+<p>A Game Lobby is where the players wait for other players to arrive, and until
+the game starts.</p>
+<h3><a class="anchor" aria-hidden="true" id="lobby-config"></a><a href="#lobby-config" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Lobby Config</h3>
+<p>The Game Lobby is configured by lobby configs for common scenarios. It contains
+a timer duration for the lobby, and handles the behavior of the app in case of
+timeouts.</p>
+<h2><a class="anchor" aria-hidden="true" id="intro-steps"></a><a href="#intro-steps" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Intro steps</h2>
+<p>The intro steps are pages shows to the user after registering and before the
+game or game lobby. These steps can be configured by the game designer to
+contain whatever is needed: intructions, a quizz, forms, etc.</p>
+<p>The set of steps can be altered depending on the treatment assigned to the
+current player.</p>
+<h2><a class="anchor" aria-hidden="true" id="exit-steps"></a><a href="#exit-steps" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exit steps</h2>
+<p>the exit steps are pages shown to the user after the game. They are configured
+by the experiment designer and may contain: results, reward instructions, quizz,
+thank you note...</p>
+<p>The steps shown may be altered depending on any parameter of the player or the
+game (treatment, results, etc.)</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/guess-the-correlation"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/docs/lifecycle"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#game">Game</a></li><li><a href="#player">Player</a></li><li><a href="#batch">Batch</a></li><li><a href="#round">Round</a></li><li><a href="#stage">Stage</a></li><li><a href="#factors">Factors</a></li><li><a href="#treatment">Treatment</a></li><li><a href="#game-lobby">Game Lobby</a><ul class="toc-headings"><li><a href="#lobby-config">Lobby Config</a></li></ul></li><li><a href="#intro-steps">Intro steps</a></li><li><a href="#exit-steps">Exit steps</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo-white.png" alt="Empirica" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/quick-start.html">Getting Started</a></div><div><h5>Community</h5><a href="https://twitter.com/empirica_ly" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/empiricaly">GitHub</a><a class="github-button" href="https://github.com/empiricaly/meteor-empirica-core" data-icon="octicon-star" data-count-href="/empiricaly/meteor-empirica-core/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Empirica</section></footer></div></body></html>

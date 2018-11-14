@@ -4,8 +4,10 @@
 <url> <loc>https://empiricaly.github.io/index</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/en/index" /> </url>
 <url> <loc>https://empiricaly.github.io/users</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/en/users" /> </url>
 <url> <loc>https://empiricaly.github.io/docs/api</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/api" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/doc5</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/doc5" /> </url>
+<url> <loc>https://empiricaly.github.io/docs/concepts</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/concepts" /> </url>
 <url> <loc>https://empiricaly.github.io/docs/guess-the-correlation</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/guess-the-correlation" /> </url>
+<url> <loc>https://empiricaly.github.io/docs/lifecycle</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/lifecycle" /> </url>
 <url> <loc>https://empiricaly.github.io/docs/quick-start</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/quick-start" /> </url>
 <url> <loc>https://empiricaly.github.io/docs/usage</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/usage" /> </url>
+<url> <loc>https://empiricaly.github.io/docs/your-first-experiment</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/your-first-experiment" /> </url>
 </urlset>
