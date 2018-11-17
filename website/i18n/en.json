@@ -21,6 +21,9 @@
         "title": "Quick Start",
         "sidebar_label": "Quick Start"
       },
+      "random-dot-motion": {
+        "title": "Random-Dot-Motion Task"
+      },
       "usage": {
         "title": "Usage"
       },
@@ -35,7 +38,7 @@
     },
     "categories": {
       "Getting Started": "Getting Started",
-      "Guides": "Guides",
+      "Community Demos": "Community Demos",
       "Reference": "Reference"
     }
   },
