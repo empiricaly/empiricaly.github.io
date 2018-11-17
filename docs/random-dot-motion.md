@@ -1,6 +1,6 @@
 ---
 id: random-dot-motion
-title: Random-Dot-Motion Task
+title: Random-Dot-Motion
 ---
 
 This is an experiment powered by [Empirica](https://empirica.ly/) as a follow-up for the model developed in
@@ -82,9 +82,6 @@ git clone https://github.com/amaatouq/small-group-discussion
 First, you have to enter the Configuration mode instead of the Monitoring model in the admin UI.
 
 ![config-mode][config-mode-image]
-
-
-
 [config-mode-image]: https://github.com/amaatouq/small-group-discussion/raw/master/readme_screenshots/configuration_mode.png
 
 This will allow you to configure the experiment: Factors, Lobby, and Treatments:

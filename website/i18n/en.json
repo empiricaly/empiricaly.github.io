@@ -12,7 +12,7 @@
         "title": "Concepts"
       },
       "guess-the-correlation": {
-        "title": "Guess the Correlation Game"
+        "title": "Guess the Correlation"
       },
       "lifecycle": {
         "title": "Experiment Lifecycle"
@@ -22,7 +22,10 @@
         "sidebar_label": "Quick Start"
       },
       "random-dot-motion": {
-        "title": "Random-Dot-Motion Task"
+        "title": "Random-Dot-Motion"
+      },
+      "room-assignment": {
+        "title": "Room Assignment"
       },
       "usage": {
         "title": "Usage"

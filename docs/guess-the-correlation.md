@@ -1,6 +1,6 @@
 ---
 id: guess-the-correlation
-title: Guess the Correlation Game
+title: Guess the Correlation
 ---
 
 ## Experiment Demo:
