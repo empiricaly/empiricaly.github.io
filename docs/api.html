@@ -28,14 +28,28 @@
         </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">API</h1></header><article><div><span><p>This document describes Empirica's <a href="#server">server</a>, <a href="#client">client</a> and
 <a href="#shared">shared</a> APIs.</p>
 <h2><a class="anchor" aria-hidden="true" id="server"></a><a href="#server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Server</h2>
-<h3><a class="anchor" aria-hidden="true" id="empiricagameinitfunction-callback"></a><a href="#empiricagameinitfunction-callback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.gameInit(function)</code> callback</h3>
+<h3><a class="anchor" aria-hidden="true" id="empiricagameinitcallback"></a><a href="#empiricagameinitcallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.gameInit(callback)</code></h3>
 <p>The <code>gameInit</code> callback is called just before a game starts, when all players
 are ready, and it must create rounds and stages for the game.</p>
-<p>One (and only one) gameInit callback is <span style="color: red">required</span>
+<p>One (and one only) gameInit callback is <span style="color: red">required</span>
 for Empirica to work.</p>
+<p>The callback receives one argument, the <a href="#game-object"><code>game</code> object</a>, which
+gives acces to the <code>players</code> and the treatment for this game.</p>
+<p>It also offers the <code>addRound()</code> method, which allows to add a round to the
+<code>game</code>. The returned Round object will implement the <code>addStage(stageArgs)</code>
+method, which allows to add a Stage to the Round. The <code>stageArgs</code> object to be
+passed to the stage creation method must contain:</p>
+<ul>
+<li><code>name</code>: the name used to identify this stage in the UI code</li>
+<li><code>displayName</code>: which will be showed to the UI to players</li>
+<li><code>durationInSeconds</code>: the stage duration, in seconds</li>
+</ul>
+<p>Note that the Game has not yet been created when the callback is called, and you
+do not have access to the other properties of the Game which will be created
+subsequently.</p>
 <h4><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
-<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">gameInit</span><span class="token punctuation">(</span><span class="token punctuation">(</span>game<span class="token punctuation">,</span> treatment<span class="token punctuation">,</span> players<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
-  players<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>player<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">gameInit</span><span class="token punctuation">(</span>game <span class="token operator">=></span> <span class="token punctuation">{</span>
+  game<span class="token punctuation">.</span>players<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>player<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     player<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"avatar"</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`/avatars/jdenticon/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>player<span class="token punctuation">.</span>_id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     player<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"score"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -47,11 +61,485 @@ for Empirica to work.</p>
       displayName<span class="token punctuation">:</span> <span class="token string">"Response"</span><span class="token punctuation">,</span>
       durationInSeconds<span class="token punctuation">:</span> <span class="token number">120</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>game<span class="token punctuation">.</span>treatment<span class="token punctuation">.</span>playerCount <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      round<span class="token punctuation">.</span><span class="token function">addStage</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        name<span class="token punctuation">:</span> <span class="token string">"response"</span><span class="token punctuation">,</span>
+        displayName<span class="token punctuation">:</span> <span class="token string">"Response"</span><span class="token punctuation">,</span>
+        durationInSeconds<span class="token punctuation">:</span> <span class="token number">120</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="game-hooks"></a><a href="#game-hooks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong><em>Game Hooks</em></strong></h3>
+<p>Game hooks are optional methods attached to various events throughout the game
+lifecycle to update data on the server-side.</p>
+<p>Contrary to client side data updates, sever-side updates are synchronous, there
+is no risk of conflicting updates, and important calculations can be taken at
+precise points along the game.</p>
+<h3><a class="anchor" aria-hidden="true" id="empiricaongamestartcallback"></a><a href="#empiricaongamestartcallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.onGameStart(callback)</code></h3>
+<p><code>onGameStart</code> is triggered once per game, before the game starts, and before the
+first <a href="#empiricaonroundstartcallback"><code>onRoundStart</code></a>. It receives the
+<a href="#game-object"><code>game</code> object</a>. Contrary to
+<a href="#empiricagameinitcallback"><code>gameInit</code></a>, the Game has been created at this
+point.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-1"></a><a href="#example-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">onGameStart</span><span class="token punctuation">(</span>game <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>game<span class="token punctuation">.</span>treatment<span class="token punctuation">.</span>myFactor <span class="token operator">===</span> <span class="token string">"fourtytwo"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    game<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"maxScore"</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    game<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"maxScore"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaonroundstartcallback"></a><a href="#empiricaonroundstartcallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.onRoundStart(callback)</code></h3>
+<p><code>onRoundStart</code> is triggered before each round starts, and before
+<a href="#empiricaonstagestartcallback"><code>onStageStart</code></a>. It receives the same options as
+<a href="empiricaongamestartcallback"><code>onGameStart</code></a>, and the <a href="#round-object">round</a>
+that is starting.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-2"></a><a href="#example-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">onRoundStart</span><span class="token punctuation">(</span><span class="token punctuation">(</span>game<span class="token punctuation">,</span> round<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  round<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"scoreToReach"</span><span class="token punctuation">,</span> game<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">"maxScore"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaonstagestartcallback"></a><a href="#empiricaonstagestartcallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.onStageStart(callback)</code></h3>
+<p><code>onRoundStart</code> is triggered before each stage starts. It receives the same
+options as <a href="empiricaonroundstartcallback"><code>onRoundStart</code></a>, and the
+<a href="#stage-object">stage</a> that is starting.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-3"></a><a href="#example-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">onStageStart</span><span class="token punctuation">(</span><span class="token punctuation">(</span>game<span class="token punctuation">,</span> round<span class="token punctuation">,</span> stage<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  stage<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"randomColor"</span><span class="token punctuation">,</span> <span class="token function">myRandomColorGenerator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaonstageendcallback"></a><a href="#empiricaonstageendcallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.onStageEnd(callback)</code></h3>
+<p><code>onStageEnd</code> is triggered after each stage. It receives the current
+<a href="#game-object">game</a>, the current <a href="#round-object">round</a>, and
+<a href="#stage-object">stage</a> that just ended.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-4"></a><a href="#example-4" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">onStageEnd</span><span class="token punctuation">(</span><span class="token punctuation">(</span>game<span class="token punctuation">,</span> round<span class="token punctuation">,</span> stage<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  stage<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"scoreGroup"</span><span class="token punctuation">,</span> stage<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">"score"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">10</span> <span class="token operator">?</span> <span class="token string">"great"</span> <span class="token punctuation">:</span> <span class="token string">"not_great"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaonroundendcallback"></a><a href="#empiricaonroundendcallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.onRoundEnd(callback)</code></h3>
+<p><code>onRoundEnd</code> is triggered after each round. It receives the current
+<a href="#game-object">game</a>, and the <a href="#round-object">round</a> that just ended.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-5"></a><a href="#example-5" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">onRoundEnd</span><span class="token punctuation">(</span><span class="token punctuation">(</span>game<span class="token punctuation">,</span> round<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> maxScore <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  game<span class="token punctuation">.</span>players<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>player <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> playerScore <span class="token operator">=</span> player<span class="token punctuation">.</span>round<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">"score"</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>playerScore <span class="token operator">></span> maxScore<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      maxScore <span class="token operator">=</span> playerScore<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  round<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"maxScore"</span><span class="token punctuation">,</span> maxScore<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaongameendcallback"></a><a href="#empiricaongameendcallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.onGameEnd(callback)</code></h3>
+<p><code>onGameEnd</code> is triggered when the game ends. It receives the
+<a href="#game-object"><code>game</code></a> that just ended.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-6"></a><a href="#example-6" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">onGameEnd</span><span class="token punctuation">(</span>game <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> maxScore <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  game<span class="token punctuation">.</span>rounds<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>round <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> roundMaxScore <span class="token operator">=</span> round<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">"maxScore"</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>roundMaxScore <span class="token operator">></span> maxScore<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      maxScore <span class="token operator">=</span> roundMaxScore<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  game<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"maxScore"</span><span class="token punctuation">,</span> maxScore<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="change-callbacks"></a><a href="#change-callbacks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong><em>Change Callbacks</em></strong></h3>
+<p><a href="#empiricaonsetcallback">onSet</a>, <a href="#empiricaonappendcallback">onAppend</a> and
+<a href="#empiricaonchangecallback">onChange</a> are called on every single update made by
+all players in each game, so they can rapidly become <strong>computationally
+expensive</strong> and have the potential to seriously slow down the app. Use wisely.</p>
+<p>It is very useful to be able to react to each update a user makes. Try
+nontheless to limit the amount of computations and database saves done in these
+callbacks. You can also try to limit the amount of calls to <code>set()</code> and
+<code>append()</code> you make (avoid calling them on a continuous drag of a slider for
+example) and inside these callbacks use the <code>key</code> argument at the very beginning
+of the callback to filter out which keys your need to run logic against.</p>
+<p>If you are not using these callbacks, comment them out, so the system does not
+call them for nothing.</p>
+<h3><a class="anchor" aria-hidden="true" id="empiricaonsetcallback"></a><a href="#empiricaonsetcallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.onSet(callback)</code></h3>
+<p><code>onSet</code> is called when the experiment code call the <code>.set()</code> method on games,
+rounds, stages, players, playerRounds or playerStages.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-7"></a><a href="#example-7" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">onSet</span><span class="token punctuation">(</span><span class="token punctuation">(</span>
+  game<span class="token punctuation">,</span>
+  round<span class="token punctuation">,</span>
+  stage<span class="token punctuation">,</span>
+  players<span class="token punctuation">,</span>
+  player<span class="token punctuation">,</span> <span class="token comment">// Player who made the change</span>
+  target<span class="token punctuation">,</span> <span class="token comment">// Object on which the change was made (eg. player.set() => player)</span>
+  targetType<span class="token punctuation">,</span> <span class="token comment">// Type of object on which the change was made (eg. player.set() => "player")</span>
+  key<span class="token punctuation">,</span> <span class="token comment">// Key of changed value (e.g. player.set("score", 1) => "score")</span>
+  value<span class="token punctuation">,</span> <span class="token comment">// New value</span>
+  prevValue <span class="token comment">// Previous value</span>
+<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token comment">// Example filtering</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">!==</span> <span class="token string">"value"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// Do some important calculation</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaonappendcallback"></a><a href="#empiricaonappendcallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.onAppend(callback)</code></h3>
+<p><code>onSet</code> is called when the experiment code call the <code>.append()</code> method on games,
+rounds, stages, players, playerRounds or playerStages.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-8"></a><a href="#example-8" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">onAppend</span><span class="token punctuation">(</span><span class="token punctuation">(</span>
+  game<span class="token punctuation">,</span>
+  round<span class="token punctuation">,</span>
+  stage<span class="token punctuation">,</span>
+  players<span class="token punctuation">,</span>
+  player<span class="token punctuation">,</span> <span class="token comment">// Player who made the change</span>
+  target<span class="token punctuation">,</span> <span class="token comment">// Object on which the change was made (eg. player.set() => player)</span>
+  targetType<span class="token punctuation">,</span> <span class="token comment">// Type of object on which the change was made (eg. player.set() => "player")</span>
+  key<span class="token punctuation">,</span> <span class="token comment">// Key of changed value (e.g. player.set("score", 1) => "score")</span>
+  value<span class="token punctuation">,</span> <span class="token comment">// New value</span>
+  prevValue <span class="token comment">// Previous value</span>
+<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token comment">// Note: `value` is the single last value (e.g 0.2), while `prevValue` will</span>
+  <span class="token comment">// be an array of the previsous values (e.g. [0.3, 0.4, 0.65]).</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaonchangecallback"></a><a href="#empiricaonchangecallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.onChange(callback)</code></h3>
+<p><code>onChange</code> is called when the experiment code call the <code>.set()</code> or the
+<code>.append()</code> method on games, rounds, stages, players, playerRounds or
+playerStages.</p>
+<p><code>onChange</code> is useful to run server-side logic for any user interaction. Note the
+extra <code>isAppend</code> boolean that will allow to differenciate sets and appends.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-9"></a><a href="#example-9" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">onChange</span><span class="token punctuation">(</span><span class="token punctuation">(</span>
+  game<span class="token punctuation">,</span>
+  round<span class="token punctuation">,</span>
+  stage<span class="token punctuation">,</span>
+  players<span class="token punctuation">,</span>
+  player<span class="token punctuation">,</span> <span class="token comment">// Player who made the change</span>
+  target<span class="token punctuation">,</span> <span class="token comment">// Object on which the change was made (eg. player.set() => player)</span>
+  targetType<span class="token punctuation">,</span> <span class="token comment">// Type of object on which the change was made (eg. player.set() => "player")</span>
+  key<span class="token punctuation">,</span> <span class="token comment">// Key of changed value (e.g. player.set("score", 1) => "score")</span>
+  value<span class="token punctuation">,</span> <span class="token comment">// New value</span>
+  prevValue<span class="token punctuation">,</span> <span class="token comment">// Previous value</span>
+  isAppend <span class="token comment">// True if the change was an append, false if it was a set</span>
+<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  Game<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"lastChangeAt"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="adding-bots"></a><a href="#adding-bots" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong><em>Adding Bots</em></strong></h3>
+<p>Adding bots to a game is as simple as defining a few callbacks. You can add
+different bots with different behaviors.</p>
+<h3><a class="anchor" aria-hidden="true" id="empiricabotname-configuration"></a><a href="#empiricabotname-configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.bot(name, configuration)</code></h3>
+<p>The <code>bot</code> method allows to add a bot with <code>name</code> (e.g. &quot;Alice&quot;), while the
+<code>configuration</code> is a set of callbacks that will allow to configure how the bot
+is suppose to react in certain conditions.</p>
+<p>The <code>configuration</code> has the follows callbacks:</p>
+<ul>
+<li><code>onStageTick</code>: called during each stage at 1 second interval</li>
+<li><code>onStageStart</code>: <strong>CURRENTLY NOT SUPPORTED</strong> called at the beginning of each
+stage (after <code>onRoundStart</code>/<code>onStageStart</code>)</li>
+<li><code>onStageEnd</code>: <strong>CURRENTLY NOT SUPPORTED</strong> called at the end of each stage
+(after <code>onStageEnd</code>, before <code>onRoundEnd</code> if it's the enf of the round)</li>
+<li><code>onPlayerChange</code>: <strong>CURRENTLY NOT SUPPORTED</strong> called each time any (human)
+player has changed a value</li>
+</ul>
+<p>All callbacks are called with the following arguments:</p>
+<ul>
+<li><code>bot</code>: is the <a href="#player-object"><code>Player</code> object</a> representing this bot</li>
+<li><code>game</code>: the current <a href="#game-object"><code>Game</code></a></li>
+<li><code>round</code>: the current <a href="#round-object"><code>Round</code></a></li>
+<li><code>stage</code>: the current <a href="#stage-object"><code>Stage</code></a></li>
+<li><code>secondsRemaining</code>: the number of remaining seconds in the stage</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="example-10"></a><a href="#example-10" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">bot</span><span class="token punctuation">(</span><span class="token string">"bob"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token function">onStageTick</span><span class="token punctuation">(</span>bot<span class="token punctuation">,</span> game<span class="token punctuation">,</span> round<span class="token punctuation">,</span> stage<span class="token punctuation">,</span> secondsRemaining<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> score <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    game<span class="token punctuation">.</span>players<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>player <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>player <span class="token operator">===</span> bot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">const</span> playerScore <span class="token operator">=</span> player<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">"score"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>playerScore <span class="token operator">></span> score<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        score <span class="token operator">=</span> playerScore
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    bot<span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">(</span><span class="token string">"score"</span><span class="token punctuation">,</span> score<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span class="token punctuation">)</span>
+</code></pre>
 <h2><a class="anchor" aria-hidden="true" id="client"></a><a href="#client" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Client</h2>
-<p>Yep</p>
+<h3><a class="anchor" aria-hidden="true" id="empiricaroundcomponent"></a><a href="#empiricaroundcomponent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.round(Component)</code></h3>
+<p>Set the <code>Round</code> Component that will contain all of the UI logic for your game.</p>
+<h4><a class="anchor" aria-hidden="true" id="props"></a><a href="#props" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h4>
+<p><em>Component</em> will receive the following props:</p>
+<table>
+<thead>
+<tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>game</code></td><td><a href="#game-object">Game</a></td><td>The current <a href="#game-object">game</a>.</td></tr>
+<tr><td><code>player</code></td><td><a href="#player-object">Player</a></td><td>The current <a href="#player-object">player</a>.</td></tr>
+<tr><td><code>round</code></td><td><a href="#round-object">Round</a></td><td>The current <a href="#round-object">round</a>.</td></tr>
+<tr><td><code>stage</code></td><td><a href="#stage-object">Stage</a></td><td>The current <a href="#stage-object">stage</a>.</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="example-11"></a><a href="#example-11" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js"><span class="token keyword">const</span> <span class="token function-variable function">Round</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> player<span class="token punctuation">,</span> game<span class="token punctuation">,</span> round<span class="token punctuation">,</span> stage <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>round<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>profile<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">{</span>player<span class="token punctuation">.</span>id<span class="token punctuation">}</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>player<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">"score"</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stimulus<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token punctuation">{</span>stage<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">"somePieceOfData..."</span><span class="token punctuation">)</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+    <span class="token comment">// ... Add round logic here. This is not a good example, we recommend you</span>
+    <span class="token comment">// take a look a Tutorial or a Demo app for better examples.</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Empirica<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span>Round<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaconsentcomponent"></a><a href="#empiricaconsentcomponent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.consent(Component)</code></h3>
+<p>Optionally set the <code>Consent</code> Component you want to present players before they
+are allowed to register.</p>
+<h4><a class="anchor" aria-hidden="true" id="props-1"></a><a href="#props-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h4>
+<p><em>Component</em> will receive the following props:</p>
+<table>
+<thead>
+<tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>onConsent</code></td><td>Function</td><td>A function to call when the user has given consent (usually, clicked a &quot;I consent&quot; button).</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="example-12"></a><a href="#example-12" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js"><span class="token keyword">const</span> <span class="token function-variable function">Consent</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> onConsent <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>consent<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>This experiment is part <span class="token keyword">of</span><span class="token operator">...</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onClick</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>onConsent<span class="token punctuation">}</span></span><span class="token punctuation">></span></span><span class="token constant">I</span> <span class="token constant">CONSENT</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Empirica<span class="token punctuation">.</span><span class="token function">consent</span><span class="token punctuation">(</span>Consent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaintrostepscallback"></a><a href="#empiricaintrostepscallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.introSteps(callback)</code></h3>
+<p>Set the intro steps to present to the user after consent and registration, and
+before they are allowed into the Lobby. These steps might be instructions, a
+quiz/test, a survey... You may present the steps in multiple pages.</p>
+<p>The <code>introSteps</code> callback should return an array of 0 or more React Components
+to show the user in order.</p>
+<h4><a class="anchor" aria-hidden="true" id="props-2"></a><a href="#props-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h4>
+<p><em>Component</em> will receive the following props:</p>
+<table>
+<thead>
+<tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>game</code></td><td><a href="#game-object">Game</a></td><td>The current <a href="#game-object">game</a>.</td></tr>
+<tr><td><code>player</code></td><td><a href="#player-object">Player</a></td><td>The current <a href="#player-object">player</a>.</td></tr>
+</tbody>
+</table>
+<p><strong>N.B.: The <code>game</code> given here <em>only</em> has the <code>treatment</code> field defined as the
+game has not yet been created.</strong></p>
+<h4><a class="anchor" aria-hidden="true" id="example-13"></a><a href="#example-13" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">introSteps</span><span class="token punctuation">(</span><span class="token punctuation">(</span>game<span class="token punctuation">,</span> player<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> steps <span class="token operator">=</span> <span class="token punctuation">[</span>InstructionStepOne<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>game<span class="token punctuation">.</span>treatment<span class="token punctuation">.</span>playerCount <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    steps<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>InstructionStepTwo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  steps<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>Quiz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> steps<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>N.B.: <code>InstructionStepOne</code> or <code>Quiz</code>, in this example, are components that are
+not implemented in this example, they are simply React Components.</p>
+<h3><a class="anchor" aria-hidden="true" id="empiricaexitstepscallback"></a><a href="#empiricaexitstepscallback" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.exitSteps(callback)</code></h3>
+<p>Set the exit steps to present to the user after the game has finished
+successfully (all rounds finished) or not (lobby timeout, cancelled game,...)</p>
+<p>The <code>exitSteps</code> callback should return an array of 1 or more React Components to
+show the user in order.</p>
+<h4><a class="anchor" aria-hidden="true" id="props-3"></a><a href="#props-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h4>
+<p><em>Component</em> will receive the following props:</p>
+<table>
+<thead>
+<tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>game</code></td><td><a href="#game-object">Game</a></td><td>The current <a href="#game-object">game</a>.</td></tr>
+<tr><td><code>player</code></td><td><a href="#player-object">Player</a></td><td>The current <a href="#player-object">player</a>.</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="example-14"></a><a href="#example-14" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Empirica<span class="token punctuation">.</span><span class="token function">exitSteps</span><span class="token punctuation">(</span><span class="token punctuation">(</span>game<span class="token punctuation">,</span> player<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>player<span class="token punctuation">.</span>exitStatus <span class="token operator">!==</span> <span class="token string">"finished"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>Sorry<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token punctuation">[</span>ExitSurvey<span class="token punctuation">,</span> Thanks<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>N.B.: <code>ExitSurvey</code> or <code>Thanks</code>, in this example, are components that are not
+implemented in this example, they are simply React Components.</p>
+<h3><a class="anchor" aria-hidden="true" id="empiricalobbycomponent"></a><a href="#empiricalobbycomponent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.lobby(Component)</code></h3>
+<p>Optionally set the <code>Lobby</code> Component to replace the default lobby.</p>
+<h4><a class="anchor" aria-hidden="true" id="props-4"></a><a href="#props-4" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h4>
+<p><em>Component</em> will receive the following props:</p>
+<table>
+<thead>
+<tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>gameLobby</code></td><td><a href="#gamelobby-object">GameLobby</a></td><td>The current <a href="#game-object">game lobby</a>.</td></tr>
+<tr><td><code>player</code></td><td><a href="#player-object">Player</a></td><td>The current <a href="#player-object">player</a>.</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="example-15"></a><a href="#example-15" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js"><span class="token keyword">const</span> <span class="token function-variable function">Lobby</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> player<span class="token punctuation">,</span> gameLobby <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lobby<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Please wait until the game is ready<span class="token operator">...</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
+      There are <span class="token punctuation">{</span>gameLobby<span class="token punctuation">.</span>readyCount<span class="token punctuation">}</span> players ready out <span class="token keyword">of</span><span class="token punctuation">{</span><span class="token string">" "</span><span class="token punctuation">}</span>
+      <span class="token punctuation">{</span>gameLobby<span class="token punctuation">.</span>treatment<span class="token punctuation">.</span>playerCount<span class="token punctuation">}</span> expected total<span class="token punctuation">.</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Empirica<span class="token punctuation">.</span><span class="token function">lobby</span><span class="token punctuation">(</span>Lobby<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaheadercomponent"></a><a href="#empiricaheadercomponent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.header(Component)</code></h3>
+<p>Optionally set the <code>Header</code> Component to replace the default app header.</p>
+<h4><a class="anchor" aria-hidden="true" id="props-5"></a><a href="#props-5" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h4>
+<p><em>Component</em> will NOT receive any props.</p>
+<h4><a class="anchor" aria-hidden="true" id="example-16"></a><a href="#example-16" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js"><span class="token keyword">const</span> <span class="token function-variable function">Header</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>header</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>app-header<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/my-logo.png<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>My Experiment<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>header</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Empirica<span class="token punctuation">.</span><span class="token function">header</span><span class="token punctuation">(</span>Header<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricabreadcrumbcomponent"></a><a href="#empiricabreadcrumbcomponent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.breadcrumb(Component)</code></h3>
+<p>Optionally set the <code>Breadcrumb</code> Component to replace the default Round/Stage
+progress indicator. This is the UI that shows which are the current Round and
+Stage, between the page Header and the Round</p>
+<h4><a class="anchor" aria-hidden="true" id="props-6"></a><a href="#props-6" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Props</h4>
+<p><em>Component</em> will receive the following props:</p>
+<table>
+<thead>
+<tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>game</code></td><td><a href="#game-object">Game</a></td><td>The current <a href="#game-object">game</a>.</td></tr>
+<tr><td><code>player</code></td><td><a href="#player-object">Player</a></td><td>The current <a href="#player-object">player</a>.</td></tr>
+<tr><td><code>round</code></td><td><a href="#round-object">Round</a></td><td>The current <a href="#round-object">round</a>.</td></tr>
+<tr><td><code>stage</code></td><td><a href="#stage-object">Stage</a></td><td>The current <a href="#stage-object">stage</a>.</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="example-17"></a><a href="#example-17" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js"><span class="token keyword">const</span> <span class="token function-variable function">Breadcrumb</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> round<span class="token punctuation">,</span> stage <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>breadcrumb<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">></span></span>Round <span class="token punctuation">{</span>round<span class="token punctuation">.</span>index <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">{</span>round<span class="token punctuation">.</span>stages<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>s <span class="token operator">=></span> <span class="token punctuation">(</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name">key</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>s<span class="token punctuation">.</span>name<span class="token punctuation">}</span></span> <span class="token attr-name">className</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">{</span>s<span class="token punctuation">.</span>name <span class="token operator">===</span> stage<span class="token punctuation">.</span>name <span class="token operator">?</span> <span class="token string">"current"</span> <span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">}</span></span><span class="token punctuation">></span></span>
+        <span class="token punctuation">{</span>s<span class="token punctuation">.</span>displayName<span class="token punctuation">}</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">></span></span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+Empirica<span class="token punctuation">.</span><span class="token function">breadcrumb</span><span class="token punctuation">(</span>Breadcrumb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="empiricaroutes"></a><a href="#empiricaroutes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Empirica.routes()</code></h3>
+<p><code>routes</code> are the entry point for the Empirica app. It is required to be used as
+part of the React render tree for Empirica to work properly and the example
+below usually does not need changing, other than the HTML node to attach to
+(<code>document.getElementById(&quot;app&quot;)</code> here).</p>
+<p>N.B.: This must be called after any other Empirica calls (Empirica.round(),
+Empirica.introSteps(), ...).</p>
+<h4><a class="anchor" aria-hidden="true" id="example-18"></a><a href="#example-18" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<pre><code class="hljs css language-js">Meteor<span class="token punctuation">.</span><span class="token function">startup</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span>Empirica<span class="token punctuation">.</span><span class="token function">routes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"app"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
 <h2><a class="anchor" aria-hidden="true" id="shared"></a><a href="#shared" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Shared</h2>
 <h3><a class="anchor" aria-hidden="true" id="game-object"></a><a href="#game-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Game</code> object</h3>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/lifecycle"><span class="arrow-prev">← </span><span>Previous</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#server">Server</a><ul class="toc-headings"><li><a href="#empiricagameinitfunction-callback"><code>Empirica.gameInit(function)</code> callback</a></li></ul></li><li><a href="#client">Client</a></li><li><a href="#shared">Shared</a><ul class="toc-headings"><li><a href="#game-object"><code>Game</code> object</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo-white.png" alt="Empirica" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/quick-start.html">Getting Started</a></div><div><h5>Community</h5><a href="https://twitter.com/empirica_ly" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/empiricaly">GitHub</a><a class="github-button" href="https://github.com/empiricaly/meteor-empirica-core" data-icon="octicon-star" data-count-href="/empiricaly/meteor-empirica-core/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Empirica</section></footer></div></body></html>
+<table>
+<thead>
+<tr><th>Property</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>treatment</code></td><td>Object (key: String, value: String or Integer)</td><td>An object representing the Factors set on this game, e.g. <code>{ &quot;playerCount&quot;: 12 }</code>.</td></tr>
+<tr><td><code>players</code></td><td>Array of <a href="#player-object">Player objects</a></td><td>Players participating in this Game.</td></tr>
+<tr><td><code>rounds</code></td><td>Array of <a href="#round-object">Round objects</a></td><td>Rounds composing this Game.</td></tr>
+<tr><td><code>createdAt</code></td><td>Date</td><td>Time at which the game was created which corresponds approximately to the time at which the Game started.</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="round-object"></a><a href="#round-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Round</code> object</h3>
+<table>
+<thead>
+<tr><th>Property</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>index</code></td><td>Object</td><td>The 0 based position of the current round in the ordered list of rounds in a game.</td></tr>
+<tr><td><code>stages</code></td><td>Array of <a href="#stage-object">Stage objects</a></td><td>Stages composing this Round.</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="stage-object"></a><a href="#stage-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Stage</code> object</h3>
+<table>
+<thead>
+<tr><th>Property</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>index</code></td><td>Object</td><td>The 0 based position of the current stage in the ordered list of a <strong>all</strong> of the game's stages.</td></tr>
+<tr><td><code>name</code></td><td>String</td><td>Programatic name of stage (i.e. to be used in code, e.g <code>if (name === &quot;outcome&quot;) ...</code>).</td></tr>
+<tr><td><code>displayName</code></td><td>String</td><td>Human name of stage (i.e. to be showed to the Player, e.g &quot;Round Outcome&quot;).</td></tr>
+<tr><td><code>durationInSeconds</code></td><td>Integer</td><td>The stage duration, in seconds.</td></tr>
+<tr><td><code>startTimeAt</code></td><td>Date</td><td>Time at which the stage started. (only set if stage has already started, i.e. not set in <code>onStageStart</code>).</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="player-object"></a><a href="#player-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Player</code> object</h3>
+<table>
+<thead>
+<tr><th>Property</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>id</code></td><td>String</td><td>The ID the player used to register (e.g. MTurk ID).</td></tr>
+<tr><td><code>urlParams</code></td><td>Object (key/value: String)</td><td>Paramaters that were set on the URL when the user registered.</td></tr>
+<tr><td><code>bot</code></td><td>String</td><td>Name of the bot used for this player, if the player is a bot (e.g. <code>Alice</code>).</td></tr>
+<tr><td><code>readyAt</code></td><td>Date</td><td>Time at witch the player became ready (done with intro steps).</td></tr>
+<tr><td><code>exitAt</code></td><td>Date</td><td>Time when the player exited the Game (whether the game ended normally or not, see exitStatus).</td></tr>
+<tr><td><code>exitStatus</code></td><td>String</td><td>Status of the Player at Game exit. <br /><br /> Can be: &quot;gameFull&quot;, &quot;gameCancelled&quot;, &quot;gameLobbyTimedOut&quot;, &quot;playerEndedLobbyWait&quot;, &quot;playerLobbyTimedOut&quot;, &quot;finished&quot;. &quot;finished&quot; represent the normal exit.</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="gamelobby-object"></a><a href="#gamelobby-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>GameLobby</code> object</h3>
+<table>
+<thead>
+<tr><th>Property</th><th>Type</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>treatment</code></td><td>Object (key: String, value: String or Integer)</td><td>An object representing the Factors set on this game, e.g. <code>{ &quot;playerCount&quot;: 12 }</code>.</td></tr>
+<tr><td><code>queuedCount</code></td><td>Integer</td><td>Total number of players queued for this game, including ready players and players currently going through the intro steps. <br> <br> <strong>N.B.: There could be more players in queuedCount than specified by the <code>playerCount</code> Factor, as Empirica can sometimes overbook Games to shorten wait times.</strong> <br /> Use <code>gameLobby.treatment.playerCount</code> to get the expected number of players.</td></tr>
+<tr><td><code>readyCount</code></td><td>Integer</td><td>Number of players ready to play. They have completed the intro steps, and they are on the lobby page.</td></tr>
+</tbody>
+</table>
+<!--
+Keep the following new lines, they are here to add some spacing at the end of the page so that anchors down to the last item on this page will still scroll to the right place.
+-->
+<p><br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br /></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/lifecycle"><span class="arrow-prev">← </span><span>Previous</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#server">Server</a><ul class="toc-headings"><li><a href="#empiricagameinitcallback"><code>Empirica.gameInit(callback)</code></a></li><li><a href="#game-hooks"><strong><em>Game Hooks</em></strong></a></li><li><a href="#empiricaongamestartcallback"><code>Empirica.onGameStart(callback)</code></a></li><li><a href="#empiricaonroundstartcallback"><code>Empirica.onRoundStart(callback)</code></a></li><li><a href="#empiricaonstagestartcallback"><code>Empirica.onStageStart(callback)</code></a></li><li><a href="#empiricaonstageendcallback"><code>Empirica.onStageEnd(callback)</code></a></li><li><a href="#empiricaonroundendcallback"><code>Empirica.onRoundEnd(callback)</code></a></li><li><a href="#empiricaongameendcallback"><code>Empirica.onGameEnd(callback)</code></a></li><li><a href="#change-callbacks"><strong><em>Change Callbacks</em></strong></a></li><li><a href="#empiricaonsetcallback"><code>Empirica.onSet(callback)</code></a></li><li><a href="#empiricaonappendcallback"><code>Empirica.onAppend(callback)</code></a></li><li><a href="#empiricaonchangecallback"><code>Empirica.onChange(callback)</code></a></li><li><a href="#adding-bots"><strong><em>Adding Bots</em></strong></a></li><li><a href="#empiricabotname-configuration"><code>Empirica.bot(name, configuration)</code></a></li></ul></li><li><a href="#client">Client</a><ul class="toc-headings"><li><a href="#empiricaroundcomponent"><code>Empirica.round(Component)</code></a></li><li><a href="#empiricaconsentcomponent"><code>Empirica.consent(Component)</code></a></li><li><a href="#empiricaintrostepscallback"><code>Empirica.introSteps(callback)</code></a></li><li><a href="#empiricaexitstepscallback"><code>Empirica.exitSteps(callback)</code></a></li><li><a href="#empiricalobbycomponent"><code>Empirica.lobby(Component)</code></a></li><li><a href="#empiricaheadercomponent"><code>Empirica.header(Component)</code></a></li><li><a href="#empiricabreadcrumbcomponent"><code>Empirica.breadcrumb(Component)</code></a></li><li><a href="#empiricaroutes"><code>Empirica.routes()</code></a></li></ul></li><li><a href="#shared">Shared</a><ul class="toc-headings"><li><a href="#game-object"><code>Game</code> object</a></li><li><a href="#round-object"><code>Round</code> object</a></li><li><a href="#stage-object"><code>Stage</code> object</a></li><li><a href="#player-object"><code>Player</code> object</a></li><li><a href="#gamelobby-object"><code>GameLobby</code> object</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo-white.png" alt="Empirica" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/quick-start.html">Getting Started</a></div><div><h5>Community</h5><a href="https://twitter.com/empirica_ly" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/empiricaly">GitHub</a><a class="github-button" href="https://github.com/empiricaly/meteor-empirica-core" data-icon="octicon-star" data-count-href="/empiricaly/meteor-empirica-core/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Empirica</section></footer></div></body></html>
