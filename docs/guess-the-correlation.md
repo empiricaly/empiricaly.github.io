@@ -101,7 +101,7 @@ an important Empirica integration point, the `Empirica.gameInit`, which allows
 to configure each game as they are initiated by Empirica.
 
 From there we import 2 other files. First the `/server/callback.js` file, which
-contains all the possible callbacks used in the lifecycle of a game. These
+contains all the possible callbacks used in the life cycle of a game. These
 callbacks, such as `onRoundEnd`, offer powerful ways to add logic to a game in a
 central point (the server), which is often preferable to adding all the logic on
 the client.

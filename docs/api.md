@@ -65,7 +65,7 @@ Empirica.gameInit(game => {
 ### **_Game Hooks_**
 
 Game hooks are optional methods attached to various events throughout the game
-lifecycle to update data on the server-side.
+life cycle to update data on the server-side.
 
 Contrary to client side data updates, sever-side updates are synchronous, there
 is no risk of conflicting updates, and important calculations can be taken at
