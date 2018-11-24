@@ -1,6 +1,6 @@
 This repository contains the website and documentation for
 [Empirica](https://github.com/empiricaly/meteor-empirica-core). It is hosted at
-https://empirica.ly. The website source is on the `gh-pages` branch, and the
+https://empirica.ly. The website source is on the `source` branch, and the
 generated/deployed website is on master (because that's what Github Pages wants
 to host the website).
 
@@ -87,11 +87,13 @@ title: This Doc Needs To Be Edited
 Edit me...
 ```
 
-For more information about docs, click [here](https://docusaurus.io/docs/en/navigation)
+For more information about docs, click
+[here](https://docusaurus.io/docs/en/navigation)
 
 ## Editing an existing blog post
 
-Edit blog posts by navigating to `website/blog` and editing the corresponding post:
+Edit blog posts by navigating to `website/blog` and editing the corresponding
+post:
 
 `website/blog/post-to-be-edited.md`
 
@@ -104,13 +106,15 @@ title: This Blog Post Needs To Be Edited
 Edit me...
 ```
 
-For more information about blog posts, click [here](https://docusaurus.io/docs/en/adding-blog)
+For more information about blog posts, click
+[here](https://docusaurus.io/docs/en/adding-blog)
 
 # Adding Content
 
 ## Adding a new docs page to an existing sidebar
 
-1. Create the doc as a new markdown file in `/docs`, example `docs/newly-created-doc.md`:
+1. Create the doc as a new markdown file in `/docs`, example
+   `docs/newly-created-doc.md`:
 
 ```md
 ---
@@ -137,11 +141,13 @@ My new content here..
 }
 ```
 
-For more information about adding new docs, click [here](https://docusaurus.io/docs/en/navigation)
+For more information about adding new docs, click
+[here](https://docusaurus.io/docs/en/navigation)
 
 ## Adding a new blog post
 
-Create the blog post with the format `YYYY-MM-DD-My-Blog-Post-Title.md` in `website/blog`:
+Create the blog post with the format `YYYY-MM-DD-My-Blog-Post-Title.md` in
+`website/blog`:
 
 `website/blog/2018-05-21-New-Blog-Post.md`
 
@@ -156,9 +162,10 @@ title: New Blog Post
 Lorem Ipsum...
 ```
 
-For more information about blog posts, click [here](https://docusaurus.io/docs/en/adding-blog)
+For more information about blog posts, click
+[here](https://docusaurus.io/docs/en/adding-blog)
 
 # Full Documentation
 
-This website was created with [Docusaurus](https://docusaurus.io/).
-Full documentation can be found on the [website](https://docusaurus.io/).
+This website was created with [Docusaurus](https://docusaurus.io/). Full
+documentation can be found on the [website](https://docusaurus.io/).
