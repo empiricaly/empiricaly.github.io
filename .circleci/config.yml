@@ -1,9 +1,9 @@
-# Only run on gh-pages
+# Only run on source
 aliases:
-  - &filter-only-gh-pages
+  - &filter-only-source
     branches:
       only:
-        - gh-pages
+        - source
 
 version: 2
 jobs:
@@ -15,7 +15,8 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:ev9CazMYuBe7nwpj9sEAWnkTy233wvIG2vA+TSUYsrI npaton@users.noreply.github.com"
+            - "SHA256:ev9CazMYuBe7nwpj9sEAWnkTy233wvIG2vA+TSUYsrI
+              npaton@users.noreply.github.com"
       - checkout
       - run:
           name: Deploying to GitHub Pages
@@ -30,4 +31,4 @@ workflows:
   build_and_deploy:
     jobs:
       - deploy-website:
-          filters: *filter-only-gh-pages
+          filters: *filter-only-source
