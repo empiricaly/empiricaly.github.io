@@ -77,22 +77,33 @@ All we're going to do in this section is change the input type from a slider to 
 The complete final code for this file is available on GitHub [SHOULD BE DIRECT LINK].  Just update your `renderSlider` according to the following code and be sure to update the call in the main `render` method.
 
 Notice that this method uses the `player` data to control the form input.  This player data is created with `player.round.set` in the `handleChange` method which is called every time the input is updated.  
-Every time `player.round.set` is called, this triggers a database call which the MongoDB server must route [IS THIS TRUE?].  If you need to reduce your server load, one option is to store this field value locally and only update the player value once the submit button is pressed.  We won't show that here--it can be accomplished with standard ReactJS--and note that this creates the risk that a users data will be lost if they exit the game unexpectedly.
+
+Every time `player.round.set` is called, this triggers a database call which the MongoDB server must route [IS THIS TRUE?].  If you need to reduce your server load, one option is to store this field value locally and only update the player value once the submit button is pressed.  We won't show that here--it can be accomplished with standard ReactJS--and note that this creates the risk that a users data will be lost if they exit the game unexpectedly.  In the present example, however, this feature will allow us to update subjects' social information in real time.
 
 ```
 renderInput() {
-    const { player } = this.props;
-    const value = player.round.get("value");
-    return (
-      <input
-				type={"number"}
-        min={1}
-        onChange={this.handleChange}
-        value={value}
-				required
-      />
-    );
- }
+	const { player } = this.props;
+	const value = player.round.get("value");
+	return (
+		<input
+			type={"number"}
+			min={1}
+			onChange={this.handleChange}
+			value={value}
+			required
+		/>
+	);
+}
+
+```
+
+Because we changed the input type, we also need to update the `handleChange` method because input events return a different type of data than slider events:
+```
+handleChange = event => {		
+	const value = event.currentTarget.value;
+    const { player } = this.props;    
+    player.round.set("value", value);
+};
 ```
 
 <a id="configure-content"></a>
@@ -108,7 +119,7 @@ This all happens server-side, so you need to create this file in your `server` d
 ```
 export const taskData = {	
 	candies: {  	  
-		path: "/experiment/images/news/stim1_false_political.png",
+		path: "/experiment/images/candies.jpg",
 		questionText: "The jar in this image contains nothing but standard M&M's.  How many M&M's are in the jar?",
 		correctAnswer: 797,
 	},
@@ -152,36 +163,35 @@ Empirica.gameInit((game, treatment, players) => {
 	
 	// Establish node list
 	const nodes = [];
-	for (var i=players.length; i--;i>0) nodes.push(1);
+  for (var i=players.length; i--;i>0) nodes.push(i);
 
   players.forEach((player, i) => {
     player.set("avatar", `/avatars/jdenticon/${player._id}`);
     player.set("score", 0);
 		
-		// Assign each node as a neighbor with probability 0.5
-		const networkNeighbors = _.filter(nodes, function(num){ return _.random(1)==1; })
-	
-		player.set("neighbors", networkNeighbors);
+		// Give each player a nodeId
+		player.set("nodeId",i);
 		
+		// Assign each node as a neighbor with probability 0.5
+		const networkNeighbors = _.filter(nodes, function(num){ return _.random(1)==1; })	
+		player.set("neighbors", networkNeighbors);		
   });
 
   _.each(taskData, (task, taskName) => {
-		console.log(taskName);
-		console.log(task.questionText);
-		console.log(task.path);
 			
     const round = game.addRound({		
 			data: {
 				taskName: taskName,
 				questionText: task.questionText,
 				imagePath: task.pathath,
+				correctAnswer: task.correctAnswer,
 			}
 		});
 		
     round.addStage({
       name: "response",
       displayName: "Response",
-      durationInSeconds: 12000
+      durationInSeconds: 120
     });
   });
 });
@@ -203,4 +213,89 @@ We also add logic so that we only display an image of a path is given:
 ```
 {imagePath==undefined ? "" : <img src={imagePath} height={"300px"}/>}
 ```
-		
+
+
+## 4.0 Adding social information to the subject experience
+Social information is included in the default Empirica template via  `SocialExposure.jsx`.  However, nothing will show if we don't have any other players!
+
+The first thing to do is create a multi-player game by adding a new factor value to playerCount (following the same procedure as above) with more than one player, then creating a new treatment and a new batch.  You can then launch the Empirica app multiple times in the same web browser by clicking "New Player" in the header tab.   The app will start once the required number of players has entered the lobby.
+
+In this example we're going to modify the default behavior so that (a) the social information only shows after subjects have entered their initial respnose, and (b) social information shows only for a subject's network neighbors.
+
+#### 4.1 Showing social information only after a player enters their initial response
+Within each `round` are multiple `stages`.   We can add more stages by returning to the `Empirica.gameInit` method and adding the following:
+```
+round.addStage({
+    name: "social",
+    displayName: "Social Information",
+    durationInSeconds: 120
+});
+```
+
+We can access the stage information (including the name) within the app, so we're going to modify `Round.jsx` to display the `SocialExposure` component only when `stage.name==="social"`:
+```
+{stage.name=="social" ? <SocialExposure stage={stage} player={player} game={game} /> : ""}
+```
+
+Finally, we'll modify `SocialExposure.jsx` to only show information for players listed in `player.get("neighbors")` by replacing the declaration for `const otherPlayers` with
+```
+const otherPlayers = _.filter(game.players, p => p._id != player._id && player.get("neighbors").includes(p.get("nodeId")));
+```
+We're also going to remove the slider element, since we are not using that in this example, and just print the number:
+```
+renderSocialInteraction(otherPlayer) {
+    const value = otherPlayer.round.get("value");
+    return (
+      <div className="alter" key={otherPlayer._id}>
+        <img src={otherPlayer.get("avatar")} className="profile-avatar" />
+				Guess: {value}
+      </div>
+    );
+ }
+```
+
+This simple feature shows just how cool and powerful Empirica can be.  Just by virtue of storing user information with `player.set()` and displaying that information in the `SocialExposure` component, the subject interface is automatically updated.   This is due to the way ReactJS works with Meteor:  any time a piece of information passed as one of the props is updated, then the display re-renders to show the new information.
+
+## 5.0  Using Conditions to modify the game features
+One of the key features of Empirica is the ability to thin like a scientist--control your app with experimental conditions.   To show how this works we'll just add one factor, allowing us to modify the stage length without changing the code.
+
+First, we add the new factor through the admin panel by navigating to the factors interface and clicking "New Factor".  You can archive your earlier treatment(s) so they don't clutter up the interface.  You'll always be able to unarchive these if necessary.
+
+Then, add a new value, make a new treatment, and create a new batch.  
+
+We use this treatment information in the `Empirica.gameInit` method by simply changing the definition in `server\main.js` to be `durationInSeconds: treatment.stageLength` for both stages.
+
+## 6.0 Calculating player score with callbacks
+Empirica provides a set of methods that will run at the start and end of each round and stage.  These can be found in `<your_app_directory>\server\callbacks.js`.
+
+By default, the score is equal to the total sum of responses, but this is not very informative.  We'll modify this to show percentage of error subtracted from 1:
+```
+// onRoundEnd is triggered after each round.
+// It receives the same options as onGameEnd, and the round that just ended.
+Empirica.onRoundEnd((game, round, players) => {
+  players.forEach(player => {
+    const value = player.round.get("value") || 0;
+    const prevScore = player.get("score") || 0;
+		var newScore = 1 - (value/round.get("correctAnswer"));
+		if(newScore<0) newScore=0;
+    player.set("score", prevScore + newScore);
+  });
+});
+```
+
+## 7.0 Next steps and future work
+In this tutorial, we have created a simple that prompts subjects to complete numeric estimation tasks and allows them to revise their answers while observing the responses of other subjects.
+
+Right now, this app ONLY works for social conditions--if you don't have any neighbors, things will look a bit weird because the stage name is called "Social Information" and there are no instructions.
+
+Here are some examples of how we can use Empirica features to expand the functionality of this experiment:
+- Add logic to use different stage names for social and non-social conditions
+- Add configurable task instructions to the constants.js that say things like "Please answer the question, you will have a chance to revise your answer" and "Please revise your answer"
+- Add a factor "questionSet" that takes a comma-separated list of question identifiers, and uses only those questions.  This allows different treatments to use different conditions, based on the same constants.js file.
+- If you want to use more complex network structures, you could store those in a json format and import them in main.js
+
+There are also several very basic features from the Intro and Outro we haven't touched yet that you'll need to update
+- the consent form
+- the instructions pages
+- the attention check
+- the Exit Survey and Thank You page
