@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Room Assignment · Empirica</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="This is an experiment powered by"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Room Assignment · Empirica"/><meta property="og:type" content="website"/><meta property="og:url" content="https://empiricaly.github.io/index.html"/><meta property="og:description" content="This is an experiment powered by"/><meta property="og:image" content="https://empiricaly.github.io/img/logo-white.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://empiricaly.github.io/img/logo-white.png"/><link rel="shortcut icon" href="/img/logo-transparent.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"/><link rel="stylesheet" href="/css/code-block-buttons.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script><script type="text/javascript" src="/js/code-block-buttons.js"></script><link rel="stylesheet" href="/css/prism.css"/><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/logo-black.png" alt="Empirica"/><h2 class="headerTitleWithLogo">Empirica</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/quick-start" target="_self">Docs</a></li><li class="siteNavGroupActive"><a href="/docs/api" target="_self">API</a></li><li class=""><a href="/help" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Community Demos</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Getting Started</h3><ul><li class="navListItem"><a class="navItem" href="/docs/quick-start">Quick Start</a></li><li class="navListItem"><a class="navItem" href="/docs/usage">Usage</a></li><li class="navListItem"><a class="navItem" href="/docs/your-first-experiment">Your First Experiment</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Community Demos</h3><ul><li class="navListItem"><a class="navItem" href="/docs/guess-the-correlation">Guess the Correlation</a></li><li class="navListItem"><a class="navItem" href="/docs/random-dot-motion">Random-Dot-Motion</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/room-assignment">Room Assignment</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Reference</h3><ul><li class="navListItem"><a class="navItem" href="/docs/concepts">Concepts</a></li><li class="navListItem"><a class="navItem" href="/docs/lifecycle">Game Life Cycle</a></li><li class="navListItem"><a class="navItem" href="/docs/api">API</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docMainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Room Assignment</h1></header><article><div><span><p>This is an experiment powered by
+<a href="https://github.com/empiricaly/empirica">Empirica</a>. Through this experiment we attempt to answer the question: <strong>How does team
+composition affect team performance?</strong></p>
+<h2><a class="anchor" aria-hidden="true" id="experiment-details"></a><a href="#experiment-details" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Experiment Details:</h2>
+<h3><a class="anchor" aria-hidden="true" id="the-task"></a><a href="#the-task" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The task</h3>
+<p>In this experiment, participants are asked to assign N students into M rooms to
+maximize utility while respecting certain constraints. The task difficulty can
+vary in complexity levels:</p>
+<ul>
+<li>High complexity: Assign 9 students to 6 rooms given 8 constraints</li>
+<li>Low complexity: Assign 6 students to 4 rooms given 2 constraints</li>
+</ul>
+<p>When the task is performed in groups then:</p>
+<ul>
+<li>All participants can do the assignment simultaneously, however, ony one
+student can be moved by one player at any given time (i.e., locking the
+student being moved, but the others are free to be moved).</li>
+<li>Participants can chat freely using the in-experiment chatting system.</li>
+<li>All events (i.e., which student being assigned to which room etc) will be
+logged and announced in the experiment as they happen.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="procedure"></a><a href="#procedure" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Procedure</h3>
+<p>In the planned experiment, <strong>in step 1</strong> each participants will be asked to
+complete a number of room assignment tasks and other test questions (e.g., read
+emotions from eyes tests) individually. This will allow us to determine 3
+attributes about the individual:</p>
+<ul>
+<li>Ability: measured by the performance in the game.</li>
+<li>Social Perceptiveness (SP): Measured through
+<a href="https://github.com/amaatouq/RME_test">Reading Emotions from Eye (RME)</a> test.</li>
+<li>Cognitive Style (CS): an in-task measure of problem-solving style (e.g.,
+intuitive versus analytical).</li>
+</ul>
+<p>Then, <strong>in step 2</strong>, we randomly construct teams of 3 participants.</p>
+<h2><a class="anchor" aria-hidden="true" id="experiment-demo"></a><a href="#experiment-demo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Experiment Demo:</h2>
+<p>You and a group of friends can play with this experiment as we ran it by following these instructions (assuming you have <a href="https://www.meteor.com/install">Meteor installed</a>):</p>
+<ol>
+<li><a href="https://github.com/amaatouq/room-assigment.git">Download</a> the repository (and unzip). Alternatively, from terminal just run:</li>
+</ol>
+<pre><code class="hljs css language-ssh">git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/amaatouq/room-assigment
+</code></pre>
+<ol start="2">
+<li>Go into the folder with <code>cd room-assigment</code></li>
+<li>Install the required dependencies <code>meteor npm install</code></li>
+<li>Edit the <code>admin</code> password in the settings file <code>local.json</code> to something you like.</li>
+<li>Run the local instance with <code>meteor --settings local.json</code></li>
+<li>Go to <code>http://localhost:3000/admin</code> (or whatever port you are running Meteor on).</li>
+<li>login with the credentials username: <code>admin</code> and the password you have in <code>local.json</code></li>
+<li>Start a new batch with whatever configuration you want (see the example configuration).</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="example-config"></a><a href="#example-config" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example Config:</h3>
+<p>First, you have to enter the Configuration mode instead of the Monitoring model in the admin UI.</p>
+<p><img src="https://raw.githubusercontent.com/amaatouq/room-assigment/master/readme_screenshots/configuration_mode.png" alt="config-mode"></p>
+<p>This will allow you to configure the experiment: Factors, Lobby, and Treatments. Now, you have the option to create your own configuration (see below) or load an example configuration by clicking on <code>import</code> and then choosing the file <code>./example-config.yaml</code>.
+Loading the example configurations will choose some example values for the factors (i.e., independent variables), lobby configuration, and few treatments.</p>
+<p>Now, you can go back to the Monitoring mode:</p>
+<p><img src="https://raw.githubusercontent.com/amaatouq/room-assigment/master/readme_screenshots/monitoring_mode.png" alt="monitoring-mode"></p>
+<p>Now the <strong><em>Batchs</em></strong> tab make sure you add a new batch, add the treatments you want, choose your lobby configurations, and then <strong><em>start</em></strong> the batch.</p>
+<p><img src="https://raw.githubusercontent.com/amaatouq/room-assigment/master/readme_screenshots/new_batch.png" alt="batches"></p>
+<p>Go to <code>http://localhost:3000/</code> and enjoy! If you don't have 3 friends to play with you, you always can use the <code>new player</code> button in development (for more details see this), which can add an arbitrary number players to the experiment while staying in the same browser (i.e., no need to open different browsers).</p>
+<p><img src="https://raw.githubusercontent.com/amaatouq/room-assigment/master/readme_screenshots/game.png" alt="game"></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/random-dot-motion"><span class="arrow-prev">← </span><span>Previous</span></a><a class="docs-next button" href="/docs/concepts"><span>Next</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav docOnPageNav"><ul class="toc-headings"><li><a href="#experiment-details">Experiment Details:</a><ul class="toc-headings"><li><a href="#the-task">The task</a></li><li><a href="#procedure">Procedure</a></li></ul></li><li><a href="#experiment-demo">Experiment Demo:</a><ul class="toc-headings"><li><a href="#example-config">Example Config:</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/logo-white.png" alt="Empirica" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/quick-start.html">Getting Started</a></div><div><h5>Community</h5><a href="https://twitter.com/empirica_ly" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/empiricaly">GitHub</a><a class="github-button" href="https://github.com/empiricaly/meteor-empirica-core" data-icon="octicon-star" data-count-href="/empiricaly/meteor-empirica-core/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2018 Empirica</section></footer></div></body></html>
