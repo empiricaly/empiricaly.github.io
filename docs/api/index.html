@@ -478,6 +478,7 @@ Empirica.introSteps(), ...).</p>
 <tr><th>Property</th><th>Type</th><th>Description</th></tr>
 </thead>
 <tbody>
+<tr><td><code>index</code></td><td>Number</td><td>An auto-increment number assignmed to each Game in order (1, 2, 3...)</td></tr>
 <tr><td><code>treatment</code></td><td>Object (key: String, value: String or Integer)</td><td>An object representing the Factors set on this game, e.g. <code>{ &quot;playerCount&quot;: 12 }</code>.</td></tr>
 <tr><td><code>players</code></td><td>Array of <a href="#player-object">Player objects</a></td><td>Players participating in this Game.</td></tr>
 <tr><td><code>rounds</code></td><td>Array of <a href="#round-object">Round objects</a></td><td>Rounds composing this Game.</td></tr>
@@ -513,6 +514,7 @@ Empirica.introSteps(), ...).</p>
 <tr><th>Property</th><th>Type</th><th>Description</th></tr>
 </thead>
 <tbody>
+<tr><td><code>index</code></td><td>Number</td><td>An auto-increment number assignmed to each Player in order (1, 2, 3...)</td></tr>
 <tr><td><code>id</code></td><td>String</td><td>The ID the player used to register (e.g. MTurk ID).</td></tr>
 <tr><td><code>urlParams</code></td><td>Object (key/value: String)</td><td>Paramaters that were set on the URL when the user registered.</td></tr>
 <tr><td><code>bot</code></td><td>String</td><td>Name of the bot used for this player, if the player is a bot (e.g. <code>Alice</code>).</td></tr>
