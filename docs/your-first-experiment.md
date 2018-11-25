@@ -50,24 +50,25 @@ All we're doing here is adding an image and question to set up the display.  Lat
 
 
  `taskStimulus.jsx`:  
-```
+```js
 import React from "react";
 
 export default class TaskStimulus extends React.Component {
   render() {
     const { round, stage, player } = this.props;
 
-		const imagePath = "/experiment/images/candies.jpg";
-		const questionText = "How many candies are in the jar?"
+    const imagePath = "/experiment/images/candies.jpg";
+    const questionText = "How many candies are in the jar?";
     return (
       <div className="task-stimulus">
-				<div className="task-image">
-					<img src={imagePath} height={"300px"}/>
-				</div>
+        <div className="task-image">
+          <img src={imagePath} height={"300px"} />
+        </div>
         <div className="task-question">
-					<b>Please answer the following question:</b>
-					<br/>How many candies are in the jar?
-				</div>
+          <b>Please answer the following question:</b>
+          <br />
+          How many candies are in the jar?
+        </div>
       </div>
     );
   }
@@ -85,30 +86,30 @@ Notice that this method uses the `player` data to control the form input.  This 
 
 Every time `player.round.set` is called, this triggers a database call which the MongoDB server must route [IS THIS TRUE?].  If you need to reduce your server load, one option is to store this field value locally and only update the player value once the submit button is pressed.  We won't show that here--it can be accomplished with standard ReactJS--and note that this creates the risk that a users data will be lost if they exit the game unexpectedly.  In the present example, however, this feature will allow us to update subjects' social information in real time.
 
-```
-renderInput() {
-	const { player } = this.props;
-	const value = player.round.get("value");
-	return (
-		<input
-			type={"number"}
-			min={1}
-			onChange={this.handleChange}
-			value={value}
-			required
-		/>
-	);
-}
+```js
+  renderInput() {
+    const { player } = this.props;
+    const value = player.round.get("value");
+    return (
+      <input
+        type={"number"}
+        min={1}
+        onChange={this.handleChange}
+        value={value}
+        required
+      />
+    );
+  }
 
 ```
 
 Because we changed the input type, we also need to update the `handleChange` method because input events return a different type of data than slider events:
-```
-handleChange = event => {		
-	const value = event.currentTarget.value;
-    const { player } = this.props;    
+```js
+  handleChange = event => {
+    const value = event.currentTarget.value;
+    const { player } = this.props;
     player.round.set("value", value);
-};
+  };
 ```
 
 <a id="configure-content"></a>
@@ -121,18 +122,20 @@ This all happens server-side, so you need to create this file in your `server` d
 #### 3.1 Creating constants.js to store task data as json data
 
 `<your_app_directory>\server\game\constants.js`
-```
-export const taskData = {	
-	candies: {  	  
-		path: "/experiment/images/candies.jpg",
-		questionText: "The jar in this image contains nothing but standard M&M's.  How many M&M's are in the jar?",
-		correctAnswer: 797,
-	},
-	survey: {  	  
-		questionText: "A 2014 survey asked Americans whether science and technology make our lives better (easier, healthier, more comfortable).  What percentage of respondents agreed that science and technology are making our lives better?",
-		correctAnswer: 80.5,
-	},
-}
+```js
+export const taskData = {
+  candies: {
+    path: "/experiment/images/candies.jpg",
+    questionText:
+      "The jar in this image contains nothing but standard M&M's.  How many M&M's are in the jar?",
+    correctAnswer: 797
+  },
+  survey: {
+    questionText:
+      "A 2014 survey asked Americans whether science and technology make our lives better (easier, healthier, more comfortable).  What percentage of respondents agreed that science and technology are making our lives better?",
+    correctAnswer: 80.5
+  }
+};
 ```
 
 We're not actually going to use the `correctAnwser` value in this demo, but if you include all relevant data in your experiment then it life is a little easier when you download your data for analysis. 
@@ -149,7 +152,7 @@ We're also going to update  this method to randomly assign each player a set of 
 Note also that these examples make use of [underscore.js](http://underscorejs.org) a library of convenient javascript tools.
 
 `main.js`
-```
+```js
 import Empirica from "meteor/empirica:core";
 
 import "./callbacks.js";
@@ -164,35 +167,37 @@ import {taskData} from './constants';
 // and the players. You can also get/set initial values on your game, players,
 // rounds and stages (with get/set methods), that will be able to use later in
 // the game.
-Empirica.gameInit((game, treatment, players) => {
-	
-	// Establish node list
-	const nodes = [];
-  for (var i=players.length; i--;i>0) nodes.push(i);
+Empirica.gameInit(game => {
+  // Establish node list
+  const nodes = [];
+  for (let i = 0; i <= game.players.length; i++) {
+    nodes.push(i);
+  }
 
-  players.forEach((player, i) => {
+  game.players.forEach((player, i) => {
     player.set("avatar", `/avatars/jdenticon/${player._id}`);
     player.set("score", 0);
-		
-		// Give each player a nodeId
-		player.set("nodeId",i);
-		
-		// Assign each node as a neighbor with probability 0.5
-		const networkNeighbors = _.filter(nodes, function(num){ return _.random(1)==1; })	
-		player.set("neighbors", networkNeighbors);		
+
+    // Give each player a nodeId
+    player.set("nodeId", i);
+
+    // Assign each node as a neighbor with probability 0.5
+    const networkNeighbors = _.filter(nodes, () => {
+      return _.random(1) === 1;
+    });
+    player.set("neighbors", networkNeighbors);
   });
 
   _.each(taskData, (task, taskName) => {
-			
-    const round = game.addRound({		
-			data: {
-				taskName: taskName,
-				questionText: task.questionText,
-				imagePath: task.pathath,
-				correctAnswer: task.correctAnswer,
-			}
-		});
-		
+    const round = game.addRound({
+      data: {
+        taskName: taskName,
+        questionText: task.questionText,
+        imagePath: task.pathath,
+        correctAnswer: task.correctAnswer
+      }
+    });
+
     round.addStage({
       name: "response",
       displayName: "Response",
@@ -200,7 +205,6 @@ Empirica.gameInit((game, treatment, players) => {
     });
   });
 });
-
 ```
 
 #### 3.3 Incorporating dynamic round data in task.jsx
@@ -209,13 +213,13 @@ Finally, we're ready to incorporate our new configurable task data into task.jsx
 
 It's easy!   All we do is change the value of the constants to pull dynamically with `round.get()` instead of setting them manually:
 
-```
+```js
 const imagePath = round.get("imagePath");
 const questionText = round.get("questionText");
 ```
 
 We also add logic so that we only display an image of a path is given:
-```
+```js
 {imagePath==undefined ? "" : <img src={imagePath} height={"300px"}/>}
 ```
 
@@ -230,7 +234,7 @@ In this example we're going to modify the default behavior so that (a) the socia
 
 #### 4.1 Showing social information only after a player enters their initial response
 Within each `round` are multiple `stages`.   We can add more stages by returning to the `Empirica.gameInit` method and adding the following:
-```
+```js
 round.addStage({
     name: "social",
     displayName: "Social Information",
@@ -239,25 +243,25 @@ round.addStage({
 ```
 
 We can access the stage information (including the name) within the app, so we're going to modify `Round.jsx` to display the `SocialExposure` component only when `stage.name==="social"`:
-```
+```js
 {stage.name=="social" ? <SocialExposure stage={stage} player={player} game={game} /> : ""}
 ```
 
 Finally, we'll modify `SocialExposure.jsx` to only show information for players listed in `player.get("neighbors")` by replacing the declaration for `const otherPlayers` with
-```
+```js
 const otherPlayers = _.filter(game.players, p => p._id != player._id && player.get("neighbors").includes(p.get("nodeId")));
 ```
 We're also going to remove the slider element, since we are not using that in this example, and just print the number:
-```
-renderSocialInteraction(otherPlayer) {
+```js
+  renderSocialInteraction(otherPlayer) {
     const value = otherPlayer.round.get("value");
     return (
       <div className="alter" key={otherPlayer._id}>
         <img src={otherPlayer.get("avatar")} className="profile-avatar" />
-				Guess: {value}
+        Guess: {value}
       </div>
     );
- }
+  }
 ```
 
 This simple feature shows just how cool and powerful Empirica can be.  Just by virtue of storing user information with `player.set()` and displaying that information in the `SocialExposure` component, the subject interface is automatically updated.   This is due to the way ReactJS works with Meteor:  any time a piece of information passed as one of the props is updated, then the display re-renders to show the new information.
@@ -277,15 +281,15 @@ We use this treatment information in the `Empirica.gameInit` method by simply ch
 Empirica provides a set of methods that will run at the start and end of each round and stage.  These can be found in `<your_app_directory>\server\callbacks.js`.
 
 By default, the score is equal to the total sum of responses, but this is not very informative.  We'll modify this to show percentage of error subtracted from 1:
-```
+```js
 // onRoundEnd is triggered after each round.
 // It receives the same options as onGameEnd, and the round that just ended.
-Empirica.onRoundEnd((game, round, players) => {
-  players.forEach(player => {
-    const value = player.round.get("value") || 0;
+Empirica.onRoundEnd((game, round) => {
+  game.players.forEach(player => {
+    let value = player.round.get("value") || 0;
     const prevScore = player.get("score") || 0;
-		var newScore = 1 - (value/round.get("correctAnswer"));
-		if(newScore<0) newScore=0;
+    let newScore = 1 - value / round.get("correctAnswer");
+    if (newScore < 0) newScore = 0;
     player.set("score", prevScore + newScore);
   });
 });
