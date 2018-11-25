@@ -4,10 +4,10 @@ title: Your First Experiment
 ---
 ### Contents
 1. [Getting Set Up with Empirica](#set-up)
- 2. [Configuring the task page](#configure-task)
+2. [Configuring the task page](#configure-task)
 
-## 1.0 Getting Set Up With Empirica
 <a id="set-up"></a>
+## 1.0 Getting Set Up With Empirica
 Although it won't do too much, Empirica works straight out of the box.  The first step to customizing your Empirica app is to launch a test game so you can see your edits in action.
 1.  First, follow the [quick-start guide](quick-start) to launch your app server.  Watch the terminal output to see your automatically generated admin login and password.
 2.  Then, visit your admin panel http://localhost:3000/admin (if you are using a cloud server such as DigitalOcean, you may need to substitute `your server IP` for `localhost`)
@@ -29,8 +29,9 @@ Although it won't do too much, Empirica works straight out of the box.  The firs
 2.  Follow through the consent, identification (this would be, e.g., an MTurk ID), instruction pages, and attention check (you have to answer correctly)
 3.  You're running an experiment!  This is the default app---just a slider with 10 rounds of input.  We're going to edit that.
 
-## 2.0 Configuring the task page
+
 <a id="configure-task"></a>
+## 2.0 Configuring the task page
 The root file for displaying your subject interface is located at `<your_app_directory>\client\game\Round.jsx` .
 
 By defualt, this is divided into two main components, `task` and `socialExposure`.  The `task` itself is composed of `taskStimulus` which contains the stimulus (e.g., a survey question--or in this example, an estimation task) and `taskResponse` which contains the input for users to response to the stimulus.
@@ -84,15 +85,122 @@ renderInput() {
     const value = player.round.get("value");
     return (
       <input
-		type={"number"}
+				type={"number"}
         min={1}
         onChange={this.handleChange}
         value={value}
+				required
       />
     );
-  }
+ }
 ```
 
-## 3.0 Configuring stimulus content
+<a id="configure-content"></a>
+## 3.0 Making it easy to configure stimulus content
 
 The next step is to allow the experimenter to modify the stimulus without having to update the experiment code directly.   We'll accomplish this by creating a JSON data file `constants.js` that contains all the stimulus information, and then read that into the experiment via the `Empirica.gameInit` API method. [is API the right terminology?]
+
+This all happens server-side, so you need to create this file in your `server` directory instead of your  `client` directory.
+
+#### 3.1 Creating constants.js to store task data as json data
+
+`<your_app_directory>\server\game\constants.js`
+```
+export const taskData = {	
+	candies: {  	  
+		path: "/experiment/images/news/stim1_false_political.png",
+		questionText: "The jar in this image contains nothing but standard M&M's.  How many M&M's are in the jar?",
+		correctAnswer: 797,
+	},
+	survey: {  	  
+		questionText: "A 2014 survey asked Americans whether science and technology make our lives better (easier, healthier, more comfortable).  What percentage of respondents agreed that science and technology are making our lives better?",
+		correctAnswer: 80.5,
+	},
+}
+```
+
+We're not actually going to use the `correctAnwser` value in this demo, but if you include all relevant data in your experiment then it life is a little easier when you download your data for analysis. 
+
+#### 3.2 Using data from constants.js in the game initiation
+
+Next, we need to incorporate this value in the `Empirica.gameInit` API method.  This method runs in 
+`<your_app_directory>\server\game\main.js`.
+
+First, we import the `constants.js` data with  `import {taskData} from './constants';` added to the head of `main.js`.
+
+We're also going to update  this method to randomly assign each player a set of 'neighbors' to follow.  We'll use this information when we update `socialExposure.jsx`.
+
+Note also that these examples make use of [underscore.js](http://underscorejs.org) a library of convenient javascript tools.
+
+`main.js`
+```
+import Empirica from "meteor/empirica:core";
+
+import "./callbacks.js";
+import "./bots.js";
+
+import {taskData} from './constants';
+
+// gameInit is where the structure of a game is defined.
+// Just before every game starts, once all the players needed are ready, this
+// function is called with the treatment and the list of players.
+// You must then add rounds and stages to the game, depending on the treatment
+// and the players. You can also get/set initial values on your game, players,
+// rounds and stages (with get/set methods), that will be able to use later in
+// the game.
+Empirica.gameInit((game, treatment, players) => {
+	
+	// Establish node list
+	const nodes = [];
+	for (var i=players.length; i--;i>0) nodes.push(1);
+
+  players.forEach((player, i) => {
+    player.set("avatar", `/avatars/jdenticon/${player._id}`);
+    player.set("score", 0);
+		
+		// Assign each node as a neighbor with probability 0.5
+		const networkNeighbors = _.filter(nodes, function(num){ return _.random(1)==1; })
+	
+		player.set("neighbors", networkNeighbors);
+		
+  });
+
+  _.each(taskData, (task, taskName) => {
+		console.log(taskName);
+		console.log(task.questionText);
+		console.log(task.path);
+			
+    const round = game.addRound({		
+			data: {
+				taskName: taskName,
+				questionText: task.questionText,
+				imagePath: task.pathath,
+			}
+		});
+		
+    round.addStage({
+      name: "response",
+      displayName: "Response",
+      durationInSeconds: 12000
+    });
+  });
+});
+
+```
+
+#### 3.3 Incorporating dynamic round data in task.jsx
+
+Finally, we're ready to incorporate our new configurable task data into task.jsx.  We'll do this in `taskStimulus.jsx`
+
+It's easy!   All we do is change the value of the constants to pull dynamically with `round.get()` instead of setting them manually:
+
+```
+const imagePath = round.get("imagePath");
+const questionText = round.get("questionText");
+```
+
+We also add logic so that we only display an image of a path is given:
+```
+{imagePath==undefined ? "" : <img src={imagePath} height={"300px"}/>}
+```
+		
