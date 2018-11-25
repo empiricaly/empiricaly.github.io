@@ -42,7 +42,7 @@ The root file for displaying your subject interface is located at `<your_app_dir
 By defualt, this is divided into two main components, `task` and `socialExposure`.  The `task` itself is composed of `taskStimulus` which contains the stimulus (e.g., a survey question--or in this example, an estimation task) and `taskResponse` which contains the input for users to response to the stimulus.
 
 #### 2.1 Adding content to the task stimulus
-Edit `taskStimulus.jsx` to the following, with the new lines highlighted.  Although Empirica is built on top of a sophisticated Meteor framework, all we have to interact with directly is standard Javascript with a ReactJS framework.   
+Edit `taskStimulus.jsx` to the following.  Although Empirica is built on top of a sophisticated Meteor framework, all we have to interact with directly is standard Javascript with a ReactJS framework.   
 
 Notiece that your props passed into the React component include `round`,`stage`, and `player`.  These are your interface with Empirica, and allow you to both read and set data for the state of the experiment.
 
