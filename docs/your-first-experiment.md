@@ -2,8 +2,12 @@
 id: your-first-experiment
 title: Your First Experiment
 ---
+### Contents
+1. [Getting Set Up with Empirica](#set-up)
+ 2. [Configuring the task page](#configure-task)
 
 ## 1.0 Getting Set Up With Empirica
+<a id="set-up"></a>
 Although it won't do too much, Empirica works straight out of the box.  The first step to customizing your Empirica app is to launch a test game so you can see your edits in action.
 1.  First, follow the [quick-start guide](quick-start) to launch your app server.  Watch the terminal output to see your automatically generated admin login and password.
 2.  Then, visit your admin panel http://localhost:3000/admin (if you are using a cloud server such as DigitalOcean, you may need to substitute `your server IP` for `localhost`)
@@ -25,7 +29,8 @@ Although it won't do too much, Empirica works straight out of the box.  The firs
 2.  Follow through the consent, identification (this would be, e.g., an MTurk ID), instruction pages, and attention check (you have to answer correctly)
 3.  You're running an experiment!  This is the default app---just a slider with 10 rounds of input.  We're going to edit that.
 
-### 2.0 Configuring the task page
+## 2.0 Configuring the task page
+<a id="configure-task"></a>
 The root file for displaying your subject interface is located at `<your_app_directory>\client\game\Round.jsx` .
 
 By defualt, this is divided into two main components, `task` and `socialExposure`.  The `task` itself is composed of `taskStimulus` which contains the stimulus (e.g., a survey question--or in this example, an estimation task) and `taskResponse` which contains the input for users to response to the stimulus.
@@ -88,6 +93,6 @@ renderInput() {
   }
 ```
 
-### 3.0 Configuring stimulus content
+## 3.0 Configuring stimulus content
 
 The next step is to allow the experimenter to modify the stimulus without having to update the experiment code directly.   We'll accomplish this by creating a JSON data file `constants.js` that contains all the stimulus information, and then read that into the experiment via the `Empirica.gameInit` API method. [is API the right terminology?]
