@@ -5,6 +5,11 @@ title: Your First Experiment
 ### Contents
 1. [Getting Set Up with Empirica](#set-up)
 2. [Configuring the task page](#configure-task)
+3. [Making task content configurable](#configure-content)
+4. [Incorporating social play](#social-information)
+5. [Using treatments to modify the experiment](#conditions)
+6. [Using callbacks to update player score](#callbacks)
+7. [Additional steps](#next-steps)
 
 <a id="set-up"></a>
 ## 1.0 Getting Set Up With Empirica
@@ -215,6 +220,7 @@ We also add logic so that we only display an image of a path is given:
 ```
 
 
+<a id="social-information"></a>
 ## 4.0 Adding social information to the subject experience
 Social information is included in the default Empirica template via  `SocialExposure.jsx`.  However, nothing will show if we don't have any other players!
 
@@ -256,7 +262,8 @@ renderSocialInteraction(otherPlayer) {
 
 This simple feature shows just how cool and powerful Empirica can be.  Just by virtue of storing user information with `player.set()` and displaying that information in the `SocialExposure` component, the subject interface is automatically updated.   This is due to the way ReactJS works with Meteor:  any time a piece of information passed as one of the props is updated, then the display re-renders to show the new information.
 
-## 5.0  Using Conditions to modify the game features
+<a id="conditions"></a>
+## 5.0  Using treatment factors to modify the game features
 One of the key features of Empirica is the ability to thin like a scientist--control your app with experimental conditions.   To show how this works we'll just add one factor, allowing us to modify the stage length without changing the code.
 
 First, we add the new factor through the admin panel by navigating to the factors interface and clicking "New Factor".  You can archive your earlier treatment(s) so they don't clutter up the interface.  You'll always be able to unarchive these if necessary.
@@ -265,6 +272,7 @@ Then, add a new value, make a new treatment, and create a new batch.
 
 We use this treatment information in the `Empirica.gameInit` method by simply changing the definition in `server\main.js` to be `durationInSeconds: treatment.stageLength` for both stages.
 
+<a id="callbacks"></a>
 ## 6.0 Calculating player score with callbacks
 Empirica provides a set of methods that will run at the start and end of each round and stage.  These can be found in `<your_app_directory>\server\callbacks.js`.
 
@@ -283,6 +291,7 @@ Empirica.onRoundEnd((game, round, players) => {
 });
 ```
 
+<a id="next-steps"></a>
 ## 7.0 Next steps and future work
 In this tutorial, we have created a simple that prompts subjects to complete numeric estimation tasks and allows them to revise their answers while observing the responses of other subjects.
 
