@@ -571,6 +571,7 @@ Meteor.startup(() => {
 
 | Property    | Type                                           | Description                                                                                               |
 | ----------- | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `index`     | Number                                         | An auto-increment number assignmed to each Game in order (1, 2, 3...)                                     |
 | `treatment` | Object (key: String, value: String or Integer) | An object representing the Factors set on this game, e.g. `{ "playerCount": 12 }`.                        |
 | `players`   | Array of [Player objects](#player-object)      | Players participating in this Game.                                                                       |
 | `rounds`    | Array of [Round objects](#round-object)        | Rounds composing this Game.                                                                               |
@@ -597,6 +598,7 @@ Meteor.startup(() => {
 
 | Property              | Type                       | Description                                                                                                                                                                                                |
 | --------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index`               | Number                     | An auto-increment number assignmed to each Player in order (1, 2, 3...)                                                                                                                                    |
 | `id`                  | String                     | The ID the player used to register (e.g. MTurk ID).                                                                                                                                                        |
 | `urlParams`           | Object (key/value: String) | Paramaters that were set on the URL when the user registered.                                                                                                                                              |
 | `bot`                 | String                     | Name of the bot used for this player, if the player is a bot (e.g. `Alice`).                                                                                                                               |
