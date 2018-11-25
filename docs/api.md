@@ -205,7 +205,6 @@ Empirica.onSet((
   game,
   round,
   stage,
-  players,
   player, // Player who made the change
   target, // Object on which the change was made (eg. player.set() => player)
   targetType, // Type of object on which the change was made (eg. player.set() => "player")
@@ -234,7 +233,6 @@ Empirica.onAppend((
   game,
   round,
   stage,
-  players,
   player, // Player who made the change
   target, // Object on which the change was made (eg. player.set() => player)
   targetType, // Type of object on which the change was made (eg. player.set() => "player")
@@ -263,7 +261,6 @@ Empirica.onChange((
   game,
   round,
   stage,
-  players,
   player, // Player who made the change
   target, // Object on which the change was made (eg. player.set() => player)
   targetType, // Type of object on which the change was made (eg. player.set() => "player")
@@ -273,6 +270,22 @@ Empirica.onChange((
   isAppend // True if the change was an append, false if it was a set
 ) => {
   Game.set("lastChangeAt", new Date().toString());
+});
+```
+
+### `Empirica.onSubmit(callback)`
+
+`onSubmit` is called when the experiment code call the `.submit()` on a Stage.
+
+Note that onSubmit is only called if `.submit()` is explicitely called on the
+Stage object. Players for which the stage times out naturally, `onSubmit` will
+not be triggered.
+
+#### Example
+
+```js
+Empirica.onSubmit((game, round, stage, player) => {
+  stage.set("lastSubmitAt", new Date().toString());
 });
 ```
 
@@ -582,14 +595,20 @@ Meteor.startup(() => {
 
 ### `Player` object
 
-| Property     | Type                       | Description                                                                                                                                                                                                |
-| ------------ | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`         | String                     | The ID the player used to register (e.g. MTurk ID).                                                                                                                                                        |
-| `urlParams`  | Object (key/value: String) | Paramaters that were set on the URL when the user registered.                                                                                                                                              |
-| `bot`        | String                     | Name of the bot used for this player, if the player is a bot (e.g. `Alice`).                                                                                                                               |
-| `readyAt`    | Date                       | Time at witch the player became ready (done with intro steps).                                                                                                                                             |
-| `exitAt`     | Date                       | Time when the player exited the Game (whether the game ended normally or not, see exitStatus).                                                                                                             |
-| `exitStatus` | String                     | Status of the Player at Game exit. <br /><br /> Can be: "gameFull", "gameCancelled", "gameLobbyTimedOut", "playerEndedLobbyWait", "playerLobbyTimedOut", "finished". "finished" represent the normal exit. |
+| Property              | Type                       | Description                                                                                                                                                                                                |
+| --------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                  | String                     | The ID the player used to register (e.g. MTurk ID).                                                                                                                                                        |
+| `urlParams`           | Object (key/value: String) | Paramaters that were set on the URL when the user registered.                                                                                                                                              |
+| `bot`                 | String                     | Name of the bot used for this player, if the player is a bot (e.g. `Alice`).                                                                                                                               |
+| `readyAt`             | Date                       | Time at witch the player became ready (done with intro steps).                                                                                                                                             |
+| `exitAt`              | Date                       | Time when the player exited the Game (whether the game ended normally or not, see exitStatus).                                                                                                             |
+| `exitStatus`          | String                     | Status of the Player at Game exit. <br /><br /> Can be: "gameFull", "gameCancelled", "gameLobbyTimedOut", "playerEndedLobbyWait", "playerLobbyTimedOut", "finished". "finished" represent the normal exit. |
+| `online`              | Boolean                    | True if the player is currently online.                                                                                                                                                                    |
+| `idle`                | Boolean                    | True if the player is currently online but idle. Idleness is defined as either the page not being active (on another tab/window) or not detecting any activity (mouse/keyboard) for more than 60s.         |
+| `lastActivityAt`      | Date                       | Time when the player was last seen online and active (not idle). Server only (this is not accessible on the client at the moment).                                                                         |
+| `lastLogin.at`        | Date                       | Time the player last come online (registered, reopened page and auto-login kicked in or reentered player ID – if they were forgotten).                                                                     |
+| `lastLogin.ip`        | String                     | [IP address](https://developer.mozilla.org/en-US/docs/Glossary/IP_Address) of player on last connection.                                                                                                   |
+| `lastLogin.userAgent` | String                     | [User-Agent](https://developer.mozilla.org/en-US/docs/Glossary/User_agent) of player on last connection.                                                                                                   |
 
 ### `GameLobby` object
 
