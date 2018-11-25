@@ -12,7 +12,7 @@
         "title": "Concepts"
       },
       "guess-the-correlation": {
-        "title": "Guess the Correlation Game"
+        "title": "Guess the Correlation"
       },
       "lifecycle": {
         "title": "Game Life Cycle"
@@ -20,6 +20,12 @@
       "quick-start": {
         "title": "Quick Start",
         "sidebar_label": "Quick Start"
+      },
+      "random-dot-motion": {
+        "title": "Random-Dot-Motion"
+      },
+      "room-assignment": {
+        "title": "Room Assignment"
       },
       "usage": {
         "title": "Usage"
@@ -35,7 +41,7 @@
     },
     "categories": {
       "Getting Started": "Getting Started",
-      "Guides": "Guides",
+      "Community Demos": "Community Demos",
       "Reference": "Reference"
     }
   },

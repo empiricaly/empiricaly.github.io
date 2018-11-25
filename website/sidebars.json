@@ -1,7 +1,11 @@
 {
   "docs": {
     "Getting Started": ["quick-start", "usage", "your-first-experiment"],
-    "Guides": ["guess-the-correlation"],
+    "Community Demos": [
+      "guess-the-correlation",
+      "random-dot-motion",
+      "room-assignment"
+    ],
     "Reference": ["concepts", "lifecycle", "api"]
   }
 }
