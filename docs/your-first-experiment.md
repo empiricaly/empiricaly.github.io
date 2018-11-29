@@ -274,7 +274,7 @@ First, we add the new factor through the admin panel by navigating to the factor
 
 Then, add a new value, make a new treatment, and create a new batch.  
 
-We use this treatment information in the `Empirica.gameInit` method by simply changing the definition in `server\main.js` to be `durationInSeconds: treatment.stageLength` for both stages.
+We use this treatment information in the `Empirica.gameInit` method by simply changing the definition in `server\main.js` to be `durationInSeconds: game.treatment.stageLength` for both stages.
 
 <a id="callbacks"></a>
 ## 6.0 Calculating player score with callbacks
