@@ -107,7 +107,7 @@ Finally, you can go back to the Monitoring mode:
 
 ![monitoring-mode][monitoring-mode-image]
 
-[monitoring-mode-image]: https://github.com/amaatouq/small-group-discussion/raw/master/readme_screenshots/readme_screenshots/monitoring_mode.png
+[monitoring-mode-image]: https://github.com/amaatouq/small-group-discussion/raw/master/readme_screenshots/monitoring_mode.png
 
 Now the **_Batchs_** tab make sure you add a new batch, add the treatments you want, choose your lobby configurations, and then **_start_** the batch.
 
