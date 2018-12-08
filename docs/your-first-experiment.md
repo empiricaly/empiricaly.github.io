@@ -80,7 +80,7 @@ export default class TaskStimulus extends React.Component {
 
 All we're going to do in this section is change the input type from a slider to a numeric input box.  Because we're asking people to estimate the number of candies in a jar, we'll set the minimum value to zero.   We recommend adding additional form verification methods beyond the default to ensure a smooth user experience.  Note that if you do choose to use a slider input, we strongly recommend the Empirica slider, which is made with experimenters in mind--no default values that might create anchoring effects.
 
-The complete final code for this file is available on GitHub [SHOULD BE DIRECT LINK].  Just update your `renderSlider` according to the following code and be sure to update the call in the main `render` method.
+The complete final code for this file is available on GitHub (https://github.com/empiricaly/your-first-experiment).  Just update your `renderSlider` according to the following code and be sure to update the call in the main `render` method.
 
 Notice that this method uses the `player` data to control the form input.  This player data is created with `player.round.set` in the `handleChange` method which is called every time the input is updated.  
 
