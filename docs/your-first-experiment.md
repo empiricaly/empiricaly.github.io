@@ -2,16 +2,7 @@
 id: your-first-experiment
 title: Your First Experiment
 ---
-### Contents
-1. [Getting Set Up with Empirica](#set-up)
-2. [Configuring the task page](#configure-task)
-3. [Making task content configurable](#configure-content)
-4. [Incorporating social play](#social-information)
-5. [Using treatments to modify the experiment](#conditions)
-6. [Using callbacks to update player score](#callbacks)
-7. [Additional steps](#next-steps)
 
-<a id="set-up"></a>
 ## 1.0 Getting Set Up With Empirica
 Although it won't do too much, Empirica works straight out of the box.  The first step to customizing your Empirica app is to launch a test game so you can see your edits in action.
 1.  First, follow the [quick-start guide](quick-start) to launch your app server.  Watch the terminal output to see your automatically generated admin login and password.
@@ -35,7 +26,6 @@ Although it won't do too much, Empirica works straight out of the box.  The firs
 3.  You're running an experiment!  This is the default app---just a slider with 10 rounds of input.  We're going to edit that.
 
 
-<a id="configure-task"></a>
 ## 2.0 Configuring the task page
 The root file for displaying your subject interface is located at `<your_app_directory>\client\game\Round.jsx` .
 
@@ -112,7 +102,7 @@ Because we changed the input type, we also need to update the `handleChange` met
   };
 ```
 
-<a id="configure-content"></a>
+
 ## 3.0 Making it easy to configure stimulus content
 
 The next step is to allow the experimenter to modify the stimulus without having to update the experiment code directly.   We'll accomplish this by creating a JSON data file `constants.js` that contains all the stimulus information, and then read that into the experiment via the `Empirica.gameInit` API method. [is API the right terminology?]
@@ -224,7 +214,7 @@ We also add logic so that we only display an image of a path is given:
 ```
 
 
-<a id="social-information"></a>
+
 ## 4.0 Adding social information to the subject experience
 Social information is included in the default Empirica template via  `SocialExposure.jsx`.  However, nothing will show if we don't have any other players!
 
@@ -266,7 +256,7 @@ We're also going to remove the slider element, since we are not using that in th
 
 This simple feature shows just how cool and powerful Empirica can be.  Just by virtue of storing user information with `player.set()` and displaying that information in the `SocialExposure` component, the subject interface is automatically updated.   This is due to the way ReactJS works with Meteor:  any time a piece of information passed as one of the props is updated, then the display re-renders to show the new information.
 
-<a id="conditions"></a>
+
 ## 5.0  Using treatment factors to modify the game features
 One of the key features of Empirica is the ability to thin like a scientist--control your app with experimental conditions.   To show how this works we'll just add one factor, allowing us to modify the stage length without changing the code.
 
@@ -276,7 +266,7 @@ Then, add a new value, make a new treatment, and create a new batch.
 
 We use this treatment information in the `Empirica.gameInit` method by simply changing the definition in `server\main.js` to be `durationInSeconds: game.treatment.stageLength` for both stages.
 
-<a id="callbacks"></a>
+
 ## 6.0 Calculating player score with callbacks
 Empirica provides a set of methods that will run at the start and end of each round and stage.  These can be found in `<your_app_directory>\server\callbacks.js`.
 
@@ -295,7 +285,7 @@ Empirica.onRoundEnd((game, round) => {
 });
 ```
 
-<a id="next-steps"></a>
+
 ## 7.0 Next steps and future work
 In this tutorial, we have created a simple that prompts subjects to complete numeric estimation tasks and allows them to revise their answers while observing the responses of other subjects.
 
