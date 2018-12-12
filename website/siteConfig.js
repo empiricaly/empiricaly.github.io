@@ -25,7 +25,7 @@ const siteConfig = {
   tagline:
     // "Open-source JavaScript framework for running multiplayer interactive experiments and games in the browser. It was created to make it easy to develop and iterate on sophisticated designs in a statistically sound manner, and offers a unique combination of power, flexibility, and speed.",
     "Easy Multiplayer Interactive Experiments in the Browser",
-  url: "https://empiricaly.github.io", // Your website URL
+  url: "https://empirica.ly", // Your website URL
   baseUrl: "/", // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
