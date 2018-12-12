@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url> <loc>https://empiricaly.github.io/help</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/en/help" /> </url>
-<url> <loc>https://empiricaly.github.io/index</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/en/index" /> </url>
-<url> <loc>https://empiricaly.github.io/users</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/en/users" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/api</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/api" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/concepts</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/concepts" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/guess-the-correlation</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/guess-the-correlation" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/lifecycle</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/lifecycle" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/quick-start</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/quick-start" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/random-dot-motion</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/random-dot-motion" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/room-assignment</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/room-assignment" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/usage</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/usage" /> </url>
-<url> <loc>https://empiricaly.github.io/docs/your-first-experiment</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empiricaly.github.io/docs/your-first-experiment" /> </url>
+<url> <loc>https://empirica.ly/help</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/en/help" /> </url>
+<url> <loc>https://empirica.ly/index</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/en/index" /> </url>
+<url> <loc>https://empirica.ly/users</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/en/users" /> </url>
+<url> <loc>https://empirica.ly/docs/api</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/docs/api" /> </url>
+<url> <loc>https://empirica.ly/docs/concepts</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/docs/concepts" /> </url>
+<url> <loc>https://empirica.ly/docs/guess-the-correlation</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/docs/guess-the-correlation" /> </url>
+<url> <loc>https://empirica.ly/docs/lifecycle</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/docs/lifecycle" /> </url>
+<url> <loc>https://empirica.ly/docs/quick-start</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/docs/quick-start" /> </url>
+<url> <loc>https://empirica.ly/docs/random-dot-motion</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/docs/random-dot-motion" /> </url>
+<url> <loc>https://empirica.ly/docs/room-assignment</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/docs/room-assignment" /> </url>
+<url> <loc>https://empirica.ly/docs/usage</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/docs/usage" /> </url>
+<url> <loc>https://empirica.ly/docs/your-first-experiment</loc> <changefreq>hourly</changefreq> <priority>1.0</priority> <xhtml:link rel="alternate" hreflang="en" href="https://empirica.ly/docs/your-first-experiment" /> </url>
 </urlset>
