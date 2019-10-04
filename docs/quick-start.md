@@ -7,7 +7,7 @@ sidebar_label: Quick Start
 You will first need to install Node.js and Meteor on your local development
 machine.
 
-For Mode.js, head over to https://nodejs.org/en/ and Download the LTS (left)
+For Node.js, head over to https://nodejs.org/en/ and Download the LTS (left)
 bundle, and install it on your machine.
 
 For meteor you can follow the instructions at https://www.meteor.com/install.
