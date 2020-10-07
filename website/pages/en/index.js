@@ -40,10 +40,10 @@ class Button extends React.Component {
 }
 
 Button.defaultProps = {
-  target: "_self"
+  target: "_self",
 };
 
-const SplashContainer = props => (
+const SplashContainer = (props) => (
   <div className="homeContainer">
     <div className="homeSplashFade">
       <div className="wrapper homeWrapper">{props.children}</div>
@@ -51,7 +51,7 @@ const SplashContainer = props => (
   </div>
 );
 
-const Logo = props => (
+const Logo = (props) => (
   <div className="projectLogo">
     <img src={props.img_src} alt="Project Logo" />
   </div>
@@ -64,7 +64,7 @@ const ProjectTitle = () => (
   </h2>
 );
 
-const PromoSection = props => (
+const PromoSection = (props) => (
   <div className="section promoSection">
     <div className="promoRow">
       <div className="pluginRowBlock">{props.children}</div>
@@ -80,9 +80,7 @@ class HomeSplash extends React.Component {
         <div className="inner">
           <ProjectTitle />
           <PromoSection>
-            <Button href={docUrl("quick-start.html", language)}>
-              Getting Started
-            </Button>
+            <Button href="https://docs.empirica.ly/">Getting Started</Button>
           </PromoSection>
         </div>
       </SplashContainer>
@@ -90,7 +88,7 @@ class HomeSplash extends React.Component {
   }
 }
 
-const Block = props => (
+const Block = (props) => (
   <Container
     padding={["bottom", "top"]}
     id={props.id}
@@ -107,8 +105,8 @@ const Intro = () => (
         content:
           "Empirica is an open-source JavaScript framework for running multiplayer interactive experiments and games in the browser. It was created to make it easy to develop and iterate on sophisticated designs in a statistically sound manner, and offers a unique combination of power, flexibility, and speed.",
         image: imgUrl("screenshot1.png"),
-        title: "" // Title is required because GridBlock is stupid
-      }
+        title: "", // Title is required because GridBlock is stupid
+      },
     ]}
   </Block>
 );
@@ -121,22 +119,22 @@ const FeaturesA = () => (
           "Empirica will handle all the tedious logistics: from crossing your independent variables to form treatments, randomization, synchronization, data collection, and managing players. You get straight to what is unique about your research and what interests you, whatever that may be.",
         image: imgUrl("wrench.svg"),
         imageAlign: "top",
-        title: "Be Productive"
+        title: "Be Productive",
       },
       {
         content:
           "Study more complex tasks and set up interactions that happen over any period of time, from seconds to months, or among any number of people, from a single player to groups of any size. Don’t be constrained by the limitations of standard behavioral experiments.",
         image: imgUrl("calendar-alt.svg"),
         imageAlign: "top",
-        title: "Be Expansive & Realistic"
+        title: "Be Expansive & Realistic",
       },
       {
         content:
           "It is easy to implement simple A/B tests with independent players in Empirica. But it's just as easy to implement group experiments with real-time or asynchronous interactions in a factorial or within-subjects design, or designs involving multiple types of units and conditional logic.",
         image: imgUrl("circle.svg"),
         imageAlign: "top",
-        title: "Simple or Complex"
-      }
+        title: "Simple or Complex",
+      },
     ]}
   </Block>
 );
@@ -149,22 +147,22 @@ const FeaturesB = () => (
           "Empirica provides you with easily configurable artificial players that can be included in the experimental game. This allows for studying Human + AI social systems. This hybrid system could be the future of our society!",
         image: imgUrl("code.svg"),
         imageAlign: "top",
-        title: "Real or Artificial"
+        title: "Real or Artificial",
       },
       {
         content:
           "Empirica is based on widely-used web technology standards: Javascript and React.js. This means you can create your own experimental games with only little prior programming knowledge.",
         image: imgUrl("js.svg"),
         imageAlign: "top",
-        title: "Flexible Standards"
+        title: "Flexible Standards",
       },
       {
         content:
           "Deploy your experiment from a web interface and watch the progress in real time with the ability to create one-way mirrors to observe the behavior of players in your virtual lab.",
         image: imgUrl("chart-line.svg"),
         imageAlign: "top",
-        title: "Don’t miss the action"
-      }
+        title: "Don’t miss the action",
+      },
     ]}
   </Block>
 );
@@ -185,8 +183,8 @@ const Team = () => (
       {
         content:
           "Empirica is developed by [Abdullah Almaatouq](http://www.amaatouq.com/) ([LinkedIn](https://www.linkedin.com/in/amaatouq/), [Twitter](https://twitter.com/amaatouq/)) and [Nicolas Paton](https://www.linkedin.com/in/nicolaspaton/)",
-        title: "Team"
-      }
+        title: "Team",
+      },
     ]}
   </Block>
 );
@@ -197,8 +195,8 @@ const Support = () => (
       {
         content:
           "We are also advised and supported by a strong team of academics and science enthusiasts including [Iyad Rahwan](https://rahwan.me/), [Duncan Watts](https://www.microsoft.com/en-us/research/people/duncan/), [Alex ‘Sandy’ Pentland](https://www.media.mit.edu/people/sandy/overview/), [Joshua Becker](https://www.joshua-becker.com/), [Alejandro Campero](https://www.linkedin.com/in/alejandro-noriega-campero-40305637/), [Niccolo Pescetelli](https://niccolopescetelli.com/about/), and [Joost P Bonsen](https://d-lab.mit.edu/staff/joost_bonsen).",
-        title: "Support"
-      }
+        title: "Support",
+      },
     ]}
   </Block>
 );

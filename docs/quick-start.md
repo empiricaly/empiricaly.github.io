@@ -12,8 +12,8 @@ bundle, and install it on your machine.
 
 For meteor you can follow the instructions at https://www.meteor.com/install.
 
-Once those are all installed, run the following 3 command in your terminal. feel
-free to change `my-experiment` with the name of you experiment (no spaces).
+Once those are all installed, run the following 3 commands in your terminal.
+feel free to change `my-experiment` with the name of you experiment (no spaces).
 
 ```sh
 npx create-empirica-app my-experiment

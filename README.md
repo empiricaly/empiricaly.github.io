@@ -9,6 +9,11 @@ typos. We do require that you follow the _standard_ Github process with fork +
 pull request. If you are not familiar with it, check out
 [this short guide](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
 
+## Note 10/2020
+
+Docs have move to https://docs.empirica.ly/ using GitBook. Docs in this repo are
+no longer updated. If you wish to help
+
 # What's In This Document
 
 - [Getting Started](#getting-started)
