@@ -33,8 +33,10 @@ class Footer extends React.Component {
             )}
           </a>
           <div>
-            <h5>Docs</h5>
+            <h5>Documentation</h5>
             <a href="https://docs.empirica.ly/">Getting Started</a>
+            <a href="https://docs.empirica.ly/guides/tutorial-your-first-experiment">Tutorial: Your First Experiment</a>
+            <a href="https://docs.empirica.ly/overview/api">API</a>
             {/* <a href={this.docUrl('doc2.html', this.props.language)}>
               Guides (or other categories)
             </a>
@@ -61,10 +63,16 @@ class Footer extends React.Component {
             >
               Twitter
             </a>
+            <a
+              href="https://www.youtube.com/watch?v=K2YhEZey_58&list=PLPQelvUwyVgiawBDk3Sp74QMfL8RPgORW"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              Youtube
+            </a>
           </div>
           <div>
-            <h5>More</h5>
-            <a href={`${this.props.config.baseUrl}blog`}>Blog</a>
+            <h5>GitHub</h5>
             <a href="https://github.com/empiricaly">GitHub</a>
             <a
               className="github-button"

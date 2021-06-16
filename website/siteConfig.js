@@ -40,8 +40,8 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    { href: "https://docs.empirica.ly/", label: "Docs" },
-    { href: "https://docs.empirica.ly/reference/api", label: "API" },
+    { href: "https://docs.empirica.ly/", label: "Documentation" },
+    // { href: "https://docs.empirica.ly/reference/api", label: "API" },
     { page: "help", label: "Help" },
     // { blog: true, label: "Blog" }
   ],
